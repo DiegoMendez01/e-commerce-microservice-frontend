@@ -24,6 +24,7 @@
   --accent-fg: var(--primary-white);
   --btn-bg: var(--primary-white);
   --btn-fg: var(--primary-blue);
+  --btn-fg-black: var(--primary-black);
   --btn-active-bg: var(--primary-white);
   --btn-active-fg: var(--primary-blue);
   --btn-hover-bg: var(--primary-white);
@@ -35,6 +36,7 @@
   --accent-fg: var(--primary-white);
   --btn-bg: #444;
   --btn-fg: var(--primary-white);
+  --btn-fg-black: var(--primary-white);
   --btn-active-bg: #666;
   --btn-active-fg: var(--primary-white);
   --btn-hover-bg: #555;

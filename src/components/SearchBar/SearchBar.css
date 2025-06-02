@@ -18,7 +18,7 @@
   border-radius: 12px;
   box-sizing: border-box;
   background-color: var(--btn-bg);
-  color: var(--btn-fg);
+  color: var(--btn-fg-black);
   transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 

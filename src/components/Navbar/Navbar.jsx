@@ -13,6 +13,7 @@ export default function Navbar() {
       <nav className="navbar" role="navigation" aria-label="Main navigation">
         <Link to="/" className="navbar__logo" title="Ir a la página principal">
           <img src={logo} alt="Logo E-commerce" style={{ height: '30px' }} />
+          <span className="navbar__app-name">E-commerce</span>
         </Link>
         <button
           className="navbar__toggle"
