@@ -16,7 +16,9 @@
   --primary-yellow: #f4b400;
   --primary-white: #ffffff;
   --primary-gray: #b3b2b2;
+  --secondary-gray: #707070;
   --primary-light-gray: #f3f3f3;
+  --primary-black: #000000;
 
   --accent-bg: var(--primary-blue);
   --accent-fg: var(--primary-white);
@@ -60,7 +62,7 @@ body {
   min-height: 100vh;
   background-color: var(--background-dark);
   color: var(--text-light);
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 h1 {
@@ -142,7 +144,6 @@ textarea {
   border: 1px solid #ccc;
   box-sizing: border-box;
   width: 100%;
-  max-width: 400px;
 }
 
 input:focus,
