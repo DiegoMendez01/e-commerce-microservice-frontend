@@ -8,6 +8,7 @@ import './Home.css';
 export default function Home() {
   const [products, setProducts] = useState([]);
   const [originalProducts, setOriginalProducts] = useState([]);
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     async function loadData() {
@@ -25,13 +26,17 @@ export default function Home() {
   const handleSearch = async (query) => {
     if (!query) {
       setProducts(originalProducts);
+      setErrorMessage('');
       return;
     }
     try {
       const results = await searchProducts(query);
       setProducts(results);
+      setErrorMessage('');
     } catch (error) {
       console.error('Error en búsqueda:', error);
+      setProducts([]);
+      setErrorMessage('No se encontraron productos con ese nombre o categoría.');
     }
   };
 
@@ -42,11 +47,17 @@ export default function Home() {
       <Breadcrumb paths={[{ label: 'Inicio', to: '/' }]} />
 
       <h2>Productos</h2>
-      <div className="product-list">
-        {products.map(product => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
+      {errorMessage ? (
+        <div className="error-message">
+          {errorMessage}
+        </div>
+      ) : (
+        <div className="product-list">
+          {products.map(product => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

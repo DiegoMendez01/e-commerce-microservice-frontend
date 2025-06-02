@@ -25,6 +25,13 @@ h1 {
   padding: 0 1rem;
 }
 
+.error-message {
+  color: red;
+  margin: 1rem 0;
+  font-weight: bold;
+  text-align: center;
+}
+
 .dark-mode body, 
 .dark-mode .home {
   background-color: #242424;
