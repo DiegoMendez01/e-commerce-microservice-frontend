@@ -11,3 +11,9 @@ export async function fetchCategories() {
   if (!response.ok) throw new Error('Error al obtener categorías');
   return response.json();
 }
+
+export async function searchProducts(name) {
+  const response = await fetch(`${BASE_URL}/products/search?name=${encodeURIComponent(name)}`);
+  if (!response.ok) throw new Error('Error en búsqueda de productos');
+  return response.json();
+}

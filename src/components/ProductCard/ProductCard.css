@@ -57,6 +57,7 @@
 }
 
 .buy-button {
+  display: block;
   margin-top: auto;
   padding: 0.6rem 1rem;
   font-size: 0.95rem;

@@ -81,8 +81,8 @@ body {
   .navbar__toggle {
     display: block;
     position: absolute;
-    top: 0.5rem;
-    right: 2rem;
+    top: 0rem;
+    right: 0rem;
   }
 
   .navbar {
