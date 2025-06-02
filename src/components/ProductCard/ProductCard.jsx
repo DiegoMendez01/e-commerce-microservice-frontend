@@ -6,7 +6,7 @@ import useDarkMode from '../../hooks/useDarkMode';
 
 export default function ProductCard({ product }) {
   const isDark = useDarkMode();
-  const { name, price, availableQuantity, description } = product;
+  const { name, price, availableQuantity, description, categoryName } = product;
   const icon   = isDark ? darkIcon : lightIcon;
 
   return (
@@ -16,8 +16,9 @@ export default function ProductCard({ product }) {
         <h3 className="product-name">{name}</h3>
         <p className="product-description">{description}</p>
         <p className="product-price">Precio: ${price.toFixed(2)}</p>
+        <p className="product-category"><strong>Categoría:</strong> {categoryName}</p>
         <p className={`product-stock ${availableQuantity > 0 ? 'in-stock' : 'out-stock'}`}>
-          {availableQuantity > 0 ? `En stock: ${availableQuantity}` : 'Agotado'}
+          {availableQuantity > 0 ? `Cantidad: ${availableQuantity}` : 'Agotado'}
         </p>
         <button className="buy-button" disabled={availableQuantity === 0}>
           Comprar

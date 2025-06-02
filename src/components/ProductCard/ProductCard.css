@@ -40,6 +40,11 @@
   color: #555;
 }
 
+.product-category {
+  font-size: 1.1rem;
+  color: #222;
+}
+
 .product-price {
   font-size: 1.1rem;
   font-weight: bold;
@@ -90,6 +95,10 @@
 }
 
 .dark-mode .product-description {
+  color: #bbb;
+}
+
+.dark-mode .product-category {
   color: #bbb;
 }
 
