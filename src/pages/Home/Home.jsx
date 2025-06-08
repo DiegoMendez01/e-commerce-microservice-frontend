@@ -48,9 +48,9 @@ export default function Home() {
 
       <h2>Productos</h2>
       {errorMessage ? (
-        <div className="error-message">
-          {errorMessage}
-        </div>
+        <div className="error-message">{errorMessage}</div>
+      ) : products.length === 0 ? (
+        <div className="error-message">No hay productos disponibles.</div>
       ) : (
         <div className="product-list">
           {products.map(product => (

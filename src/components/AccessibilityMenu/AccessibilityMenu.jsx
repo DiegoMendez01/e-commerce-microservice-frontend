@@ -1,39 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './AccessibilityMenu.css';
+import useAccessibilityMenu from '../../hooks/useAccessibilityMenu';
 
 export default function AccessibilityMenu() {
-  const getInitialFontSize = () => {
-    const saved = localStorage.getItem('fontSize');
-    return saved ? parseInt(saved, 10) : 16;
-  };
-
-  const getInitialDarkMode = () => {
-    const saved = localStorage.getItem('darkMode');
-    if (saved !== null) return saved === 'true';
-    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  };
-
-  const [fontSize, setFontSize] = useState(getInitialFontSize);
-  const [darkMode, setDarkMode] = useState(getInitialDarkMode);
-
-  useEffect(() => {
-    document.documentElement.style.fontSize = `${fontSize}px`;
-    localStorage.setItem('fontSize', fontSize);
-  }, [fontSize]);
-
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add('dark-mode');
-    } else {
-      document.documentElement.classList.remove('dark-mode');
-    }
-    localStorage.setItem('darkMode', darkMode);
-  }, [darkMode]);
-
-  const increaseFont = () => setFontSize((size) => Math.min(size + 2, 24));
-  const decreaseFont = () => setFontSize((size) => Math.max(size - 2, 12));
-  const resetFont = () => setFontSize(16);
-  const toggleDarkMode = () => setDarkMode((mode) => !mode);
+  const {
+    darkMode,
+    increaseFont,
+    decreaseFont,
+    resetFont,
+    toggleDarkMode,
+  } = useAccessibilityMenu();
 
   return (
     <nav aria-label="Menú de accesibilidad" className="accessibility-menu" role="region">
