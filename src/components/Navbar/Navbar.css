@@ -75,11 +75,11 @@
 .dark-mode .navbar {
   background-color: var(--primary-light-gray);
   color: var(--text-color);
-  border-bottom: 2px solid var(--primary-yellow);
+  border-bottom: 5px solid var(--primary-yellow);
 }
 
 .dark-mode .navbar__links a {
-  color: var(--accent-fg);
+  color: var(--primary-white);
 }
 
 .dark-mode .navbar__links a:hover,

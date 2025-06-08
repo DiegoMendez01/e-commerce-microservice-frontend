@@ -22,7 +22,6 @@ export default function Header() {
                             src={isDarkMode ? logoLight : logoDark}
                             alt="Logo E-commerce"
                             title="Ir a Inicio"
-                            style={{ height: '40px' }}
                         />
                     </Link>
                 </div>
@@ -34,6 +33,7 @@ export default function Header() {
                         rel="noopener noreferrer"
                         aria-label="Facebook"
                         title="Ir a Facebook"
+                        className='header__socials--facebook'
                     >
                         <i className="fab fa-facebook-f" aria-hidden="true"></i>
                     </a>
@@ -43,6 +43,7 @@ export default function Header() {
                         rel="noopener noreferrer"
                         aria-label="Twitter"
                         title="Ir a Twitter"
+                        className='header__socials--twitter'
                     >
                         <i className="fab fa-twitter" aria-hidden="true"></i>
                     </a>

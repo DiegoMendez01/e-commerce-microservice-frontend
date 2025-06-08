@@ -36,22 +36,29 @@
   --text-color: var(--primary-black);
   --text-link-color: var(--primary-blue);
   --text-link-hover-color: var(--primary-blue);
+
+  --logo-height: 60px;
 }
 
 .dark-mode {
-  --accent-bg: #222;
+  --accent-bg: #121a2a;
   --accent-fg: var(--primary-white);
-  --btn-bg: #444;
+  
+  --btn-bg: #1c2541;
   --btn-fg: var(--primary-white);
   --btn-fg-black: var(--primary-white);
-  --btn-active-bg: #666;
+  
+  --btn-active-bg: #3366cc;
   --btn-active-fg: var(--primary-white);
-  --btn-hover-bg: #555;
+  
+  --btn-hover-bg: #274baf;
   --btn-hover-fg: var(--primary-white);
 
   --text-color: var(--primary-white);
-  --text-link-color: var(--primary-white);
+  --text-link-color: var(--primary-blue);
   --text-link-hover-color: var(--primary-yellow);
 
   --primary-light-gray: #3a3a3a;
+
+  --logo-height: 40px;
 }
