@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useLanguage } from '../../hooks/useLanguage';
 import './LanguageSelector.css';
 
 export default function LanguageSelector() {
-  const [language, setLanguage] = useState('es');
+  const { language, setLanguage } = useLanguage();
 
   const handleChange = (e) => {
     setLanguage(e.target.value);
-    console.log(`Idioma seleccionado: ${e.target.value}`);
   };
 
   return (

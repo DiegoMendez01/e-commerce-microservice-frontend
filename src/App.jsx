@@ -5,18 +5,21 @@ import Home from './pages/Home/Home';
 import AccessibilityMenu from './components/AccessibilityMenu/AccessibilityMenu';
 import ScrollToTopButton from './components/ScrollToTopButton/ScrollToTopButton';
 import Header from './components/Header/Header';
+import { LanguageProvider } from './providers/LanguageProvider';
 
 function App() {
   return (
-    <Router>
-      <Header />
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-      </Routes>
-      <AccessibilityMenu />
-      <ScrollToTopButton />
-    </Router>
+    <LanguageProvider>
+      <Router>
+        <Header />
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+        <AccessibilityMenu />
+        <ScrollToTopButton />
+      </Router>
+    </LanguageProvider>
   );
 }
 
