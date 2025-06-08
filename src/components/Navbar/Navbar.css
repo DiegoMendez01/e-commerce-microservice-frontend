@@ -81,7 +81,7 @@ body {
   .navbar__toggle {
     display: block;
     position: absolute;
-    top: 0rem;
+    top: 0.3rem;
     right: 0rem;
   }
 
@@ -95,7 +95,6 @@ body {
     flex-direction: column;
     display: none;
     gap: 1rem;
-    margin-top: 3rem;
   }
 
   .navbar__links.open {

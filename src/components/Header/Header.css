@@ -1,0 +1,96 @@
+.top-bar {
+  background-color: var(--accent-bg);
+  color: var(--accent-fg);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-base);
+  padding: 0.5rem 1rem;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.header {
+  background-color: var(--primary-white);
+  color: var(--text-color);
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-semibold);
+  padding: 2rem 1rem;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header__logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: var(--font-size-large);
+  color: var(--primary-blue);
+}
+
+.header__app-name {
+  font-weight: var(--font-weight-bold);
+}
+
+.header__socials a {
+  color: var(--text-link-color);
+  margin-left: 1rem;
+  font-size: 1.25rem;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.header__socials--sitemap {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid var(--primary-blue);
+  border-radius: 6px;
+  color: var(--primary-blue);
+  font-size: 1.2rem;
+  text-decoration: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  margin-left: 1rem;
+}
+
+.header__socials a:hover,
+.header__socials a:focus {
+  color: var(--text-link-hover-color);
+  outline: none;
+}
+
+/* Modo oscuro */
+.dark-mode .top-bar {
+  background-color: var(--accent-bg);
+  color: var(--accent-fg);
+}
+
+.dark-mode .header__socials--sitemap {
+  border-color: var(--primary-white);
+  color: var(--primary-white);
+}
+
+.dark-mode .header {
+  background-color: #222;
+  color: var(--text-color);
+  border-top: 1px solid var(--primary-light-gray);
+  border-bottom: 1px solid var(--primary-light-gray);
+}
+
+.dark-mode .header__logo {
+  color: var(--primary-white);
+}
+
+.dark-mode .header__socials a {
+  color: var(--text-link-color);
+}
+
+.dark-mode .header__socials a:hover,
+.dark-mode .header__socials a:focus {
+  color: var(--text-link-hover-color);
+}
