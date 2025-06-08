@@ -56,6 +56,6 @@ h1 {
 
 @media (min-width: 1200px) {
   .product-list {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
   }
 }

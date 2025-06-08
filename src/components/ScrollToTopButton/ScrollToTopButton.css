@@ -1,0 +1,23 @@
+.scroll-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 40px;
+  height: 40px;
+  font-size: 24px;
+  background-color: var(--accent-bg);
+  color: var(--btn-fg);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  transition: background-color 0.3s ease;
+  z-index: 10000;
+}
+
+.scroll-to-top:hover,
+.scroll-to-top:focus {
+  background-color: var(--btn-hover-bg);
+  color: var(--btn-hover-fg);
+  outline: none;
+}

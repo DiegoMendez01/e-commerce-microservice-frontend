@@ -4,11 +4,16 @@ import ProductCard from '../../components/ProductCard/ProductCard';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import './Home.css';
+import Pagination from '../../components/Pagination/Pagination';
+import usePagination from '../../hooks/usePagination';
 
 export default function Home() {
   const [products, setProducts] = useState([]);
   const [originalProducts, setOriginalProducts] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
+
+  const { currentPage, setCurrentPage, resetPage } = usePagination();
+  const itemsPerPage = 5;
 
   useEffect(() => {
     async function loadData() {
@@ -24,6 +29,7 @@ export default function Home() {
   }, []);
 
   const handleSearch = async (query) => {
+    resetPage();
     if (!query) {
       setProducts(originalProducts);
       setErrorMessage('');
@@ -40,6 +46,10 @@ export default function Home() {
     }
   };
 
+  // Paginación
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = products.slice(indexOfFirstItem, indexOfLastItem);
 
   return (
     <div className="home">
@@ -52,11 +62,19 @@ export default function Home() {
       ) : products.length === 0 ? (
         <div className="error-message">No hay productos disponibles.</div>
       ) : (
-        <div className="product-list">
-          {products.map(product => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
+        <>
+          <div className="product-list">
+            {currentItems.map(product => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+          <Pagination
+            totalItems={products.length}
+            itemsPerPage={itemsPerPage}
+            currentPage={currentPage}
+            onPageChange={setCurrentPage}
+          />
+        </>
       )}
     </div>
   );
