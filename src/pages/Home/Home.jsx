@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { fetchProducts, searchProducts } from '../../api/api';
+import { fetchProducts, searchProducts } from '../../api/Product/apiProduct';
 import ProductCard from '../../components/ProductCard/ProductCard';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import SearchBar from '../../components/SearchBar/SearchBar';
