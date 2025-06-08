@@ -52,4 +52,6 @@
   --text-color: var(--primary-white);
   --text-link-color: var(--primary-white);
   --text-link-hover-color: var(--primary-yellow);
+
+  --primary-light-gray: #3a3a3a;
 }

@@ -6,7 +6,7 @@
   padding: 0.3rem 0.5rem;
   font-size: 0.9rem;
   border-radius: 4px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--accent-bg);
 }
 
 .dark-mode .language-selector select {
