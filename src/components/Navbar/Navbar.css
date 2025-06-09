@@ -17,10 +17,9 @@
   background: none;
   border: none;
   font-size: var(--font-size-large);
-  color: var(--accent-fg);
+  color: var(--primary-black);
   cursor: pointer;
   display: none;
-  margin-left: 1rem;
 }
 
 .navbar__links {
@@ -50,9 +49,7 @@
 @media (max-width: 768px) {
   .navbar__toggle {
     display: block;
-    position: absolute;
-    top: 0.3rem;
-    right: 0rem;
+    padding: 0rem;
   }
 
   .navbar {
@@ -69,6 +66,7 @@
 
   .navbar__links.open {
     display: flex;
+    margin-top: 0.5rem;
   }
 }
 
