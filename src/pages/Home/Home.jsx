@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { fetchProducts, searchProducts } from '../../api/Product/apiProduct';
 import ProductCard from '../../components/ProductCard/ProductCard';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import './Home.css';
 import Pagination from '../../components/Pagination/Pagination';
 import usePagination from '../../hooks/usePagination';
 import { useLanguage } from '../../hooks/useLanguage';
 import Translations from '../../Translations/Translations';
+import HeadingH2 from '../../components/HeadingH2/HeadingH2';
 
 export default function Home() {
   const [products, setProducts] = useState([]);
@@ -59,9 +59,10 @@ export default function Home() {
   return (
     <div className="home">
       <SearchBar onSearch={handleSearch} />
-      <Breadcrumb paths={[{ label: 'Inicio', to: '/' }]} />
 
-      <h2>{t.products}</h2>
+      <div>
+        <HeadingH2>{t.products}</HeadingH2>
+      </div>
       {errorMessage ? (
         <div className="error-message">{errorMessage}</div>
       ) : products.length === 0 ? (

@@ -4,8 +4,7 @@ body, .home {
 }
 
 .home {
-  padding: 1.5rem 2rem;
-  max-width: 1800px;
+  padding: 1.5rem 4rem;
   margin: 0 auto;
 }
 
@@ -18,7 +17,6 @@ h1 {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.5rem;
-  padding: 0 1rem;
 }
 
 .error-message {

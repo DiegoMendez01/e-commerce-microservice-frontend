@@ -4,7 +4,7 @@
   font-family: var(--font-family-base);
   font-size: var(--font-size-small);
   line-height: var(--line-height-base);
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 4rem;
   box-sizing: border-box;
   display: flex;
   justify-content: flex-end;
@@ -16,7 +16,7 @@
   color: var(--text-color);
   font-family: var(--font-family-base);
   font-weight: var(--font-weight-semibold);
-  padding: 2rem 1rem;
+  padding: 1.5rem 4rem;
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;

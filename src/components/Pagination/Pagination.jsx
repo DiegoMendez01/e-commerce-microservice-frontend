@@ -14,18 +14,43 @@ export default function Pagination({ totalItems, itemsPerPage, currentPage, onPa
 
   const renderPageNumbers = () => {
     const pages = [];
+    const maxVisible = 3;
 
-    for (let i = 1; i <= totalPages; i++) {
+    const addPageButton = (page) => {
       pages.push(
         <button
-          key={i}
-          onClick={() => handlePageClick(i)}
-          className={`pagination__button ${currentPage === i ? 'active' : ''}`}
-          aria-current={currentPage === i ? 'page' : undefined}
+          key={page}
+          onClick={() => handlePageClick(page)}
+          className={`pagination__button ${currentPage === page ? 'active' : ''}`}
+          aria-current={currentPage === page ? 'page' : undefined}
         >
-          {i}
+          {page}
         </button>
       );
+    };
+
+    if (totalPages <= maxVisible) {
+      for (let i = 1; i <= totalPages; i++) {
+        addPageButton(i);
+      }
+    } else {
+      if (currentPage <= 2) {
+        for (let i = 1; i <= 3; i++) {
+          addPageButton(i);
+        }
+        pages.push(<span key="dots-end" className="pagination__dots" aria-hidden="true">...</span>);
+      } else if (currentPage >= totalPages - 1) {
+        pages.push(<span key="dots-start" className="pagination__dots" aria-hidden="true">...</span>);
+        for (let i = totalPages - 2; i <= totalPages; i++) {
+          addPageButton(i);
+        }
+      } else {
+        pages.push(<span key="dots-start" className="pagination__dots" aria-hidden="true">...</span>);
+        for (let i = currentPage - 1; i <= currentPage + 1; i++) {
+          addPageButton(i);
+        }
+        pages.push(<span key="dots-end" className="pagination__dots" aria-hidden="true">...</span>);
+      }
     }
 
     return pages;
@@ -34,43 +59,46 @@ export default function Pagination({ totalItems, itemsPerPage, currentPage, onPa
   return (
     <div className="pagination">
       {currentPage > 1 && (
-        <button
-          onClick={() => handlePageClick(1)}
-          className="pagination__button"
-          aria-label="Primera página"
-        >
-          &#171;
-        </button>
-      )}
+        <>
+          <button
+            onClick={() => handlePageClick(1)}
+            className="pagination__button"
+            aria-label="Primera página"
+          >
+            Primero
+          </button>
+          <span className="pagination__separator" aria-hidden="true">|</span>
 
-      <button
-        onClick={() => handlePageClick(currentPage - 1)}
-        disabled={currentPage === 1}
-        className="pagination__button"
-        aria-label="Página anterior"
-      >
-        &lsaquo;
-      </button>
+          <button
+            onClick={() => handlePageClick(currentPage - 1)}
+            className="pagination__button"
+            aria-label="Página anterior"
+          >
+            Ant.
+          </button>
+        </>
+      )}
 
       {renderPageNumbers()}
 
-      <button
-        onClick={() => handlePageClick(currentPage + 1)}
-        disabled={currentPage === totalPages}
-        className="pagination__button"
-        aria-label="Página siguiente"
-      >
-        &rsaquo;
-      </button>
-
       {currentPage < totalPages && (
-        <button
-          onClick={() => handlePageClick(totalPages)}
-          className="pagination__button"
-          aria-label="Última página"
-        >
-          &#187;
-        </button>
+        <>
+          <button
+            onClick={() => handlePageClick(currentPage + 1)}
+            className="pagination__button"
+            aria-label="Página siguiente"
+          >
+            Sig.
+          </button>
+          <span className="pagination__separator" aria-hidden="true">|</span>
+          <button
+            onClick={() => handlePageClick(totalPages)}
+            className="pagination__button"
+            aria-label="Última página"
+          >
+            Último
+          </button>
+        </>
       )}
     </div>
   );

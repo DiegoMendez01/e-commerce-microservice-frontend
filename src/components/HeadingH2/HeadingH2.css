@@ -1,0 +1,19 @@
+.heading-h2 {
+  position: relative;
+  display: inline-block;
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-color);
+  font-family: var(--font-family-base);
+}
+
+.heading-h2__underline {
+  position: absolute;
+  bottom: 0;
+  left: 0%;
+  width: 50%;
+  height: 4px;
+  background-color: var(--primary-yellow);
+  content: '';
+  border-radius: 10px;
+}

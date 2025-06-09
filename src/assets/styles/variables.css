@@ -7,6 +7,9 @@
   --primary-light-gray: #f3f3f3;
   --primary-black: #000000;
 
+  --color-success: green;
+  --color-error: red;
+
   --accent-bg: var(--primary-blue);
   --accent-fg: var(--primary-white);
   --btn-bg: var(--primary-white);
@@ -43,14 +46,14 @@
 .dark-mode {
   --accent-bg: #121a2a;
   --accent-fg: var(--primary-white);
-  
+
   --btn-bg: #1c2541;
   --btn-fg: var(--primary-white);
   --btn-fg-black: var(--primary-white);
-  
+
   --btn-active-bg: #3366cc;
   --btn-active-fg: var(--primary-white);
-  
+
   --btn-hover-bg: #274baf;
   --btn-hover-fg: var(--primary-white);
 
@@ -61,4 +64,7 @@
   --primary-light-gray: #3a3a3a;
 
   --logo-height: 60px;
+
+  --color-success: lightgreen;
+  --color-error: salmon;
 }
