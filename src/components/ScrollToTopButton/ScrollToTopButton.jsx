@@ -1,9 +1,13 @@
 import React from 'react';
 import './ScrollToTopButton.css';
 import useScrollToTopVisibility from '../../hooks/useScrollToTopVisibility';
+import { useLanguage } from '../../hooks/useLanguage';
+import Translations from '../../Translations/Translations';
 
 export default function ScrollToTopButton() {
   const isVisible = useScrollToTopVisibility();
+  const { language } = useLanguage();
+  const t = Translations[language];
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -12,13 +16,14 @@ export default function ScrollToTopButton() {
   if (!isVisible) return null;
 
   return (
-    <button
-      onClick={scrollToTop}
-      className="scroll-to-top"
-      aria-label="Volver al inicio"
-      title="Volver al inicio"
-    >
-      ↑
-    </button>
+    <nav aria-label={t.scrollToTopLabel} className="scroll-to-top" role="region">
+      <button
+        onClick={scrollToTop}
+        aria-label={t.scrollToTop}
+        title={t.scrollToTop}
+      >
+        <i className="fa-solid fa-arrow-up" aria-hidden="true"></i>
+      </button>
+    </nav>
   );
 }

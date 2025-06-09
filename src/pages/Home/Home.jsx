@@ -6,6 +6,8 @@ import SearchBar from '../../components/SearchBar/SearchBar';
 import './Home.css';
 import Pagination from '../../components/Pagination/Pagination';
 import usePagination from '../../hooks/usePagination';
+import { useLanguage } from '../../hooks/useLanguage';
+import Translations from '../../Translations/Translations';
 
 export default function Home() {
   const [products, setProducts] = useState([]);
@@ -14,6 +16,9 @@ export default function Home() {
 
   const { currentPage, setCurrentPage, resetPage } = usePagination();
   const itemsPerPage = 5;
+
+  const { language } = useLanguage();
+  const t = Translations[language];
 
   useEffect(() => {
     async function loadData() {
@@ -42,7 +47,7 @@ export default function Home() {
     } catch (error) {
       console.error('Error en búsqueda:', error);
       setProducts([]);
-      setErrorMessage('No se encontraron productos con ese nombre o categoría.');
+      setErrorMessage(t.noSearchResults);
     }
   };
 
@@ -56,11 +61,11 @@ export default function Home() {
       <SearchBar onSearch={handleSearch} />
       <Breadcrumb paths={[{ label: 'Inicio', to: '/' }]} />
 
-      <h2>Productos</h2>
+      <h2>{t.products}</h2>
       {errorMessage ? (
         <div className="error-message">{errorMessage}</div>
       ) : products.length === 0 ? (
-        <div className="error-message">No hay productos disponibles.</div>
+        <div className="error-message">{t.noProducts}</div>
       ) : (
         <>
           <div className="product-list">

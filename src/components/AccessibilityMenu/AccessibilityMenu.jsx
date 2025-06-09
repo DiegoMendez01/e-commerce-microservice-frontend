@@ -1,6 +1,8 @@
 import React from 'react';
 import './AccessibilityMenu.css';
 import useAccessibilityMenu from '../../hooks/useAccessibilityMenu';
+import { useLanguage } from '../../hooks/useLanguage';
+import Translations from '../../Translations/Translations';
 
 export default function AccessibilityMenu() {
   const {
@@ -11,25 +13,40 @@ export default function AccessibilityMenu() {
     toggleDarkMode,
   } = useAccessibilityMenu();
 
+  const { language } = useLanguage();
+  const t = Translations[language];
+
   return (
-    <nav aria-label="Menú de accesibilidad" className="accessibility-menu" role="region">
-      <button onClick={increaseFont} aria-label="Aumentar tamaño de fuente" title="Aumentar tamaño de fuente">
+    <nav aria-label={t.accessibilityMenuLabel} className="accessibility-menu" role="region">
+      <button
+        onClick={increaseFont}
+        aria-label={t.increaseFont}
+        title={t.increaseFont}
+      >
         <i className="fa-solid fa-plus" aria-hidden="true"></i>
       </button>
 
-      <button onClick={resetFont} aria-label="Restablecer tamaño de fuente" title="Restablecer tamaño de fuente">
+      <button
+        onClick={resetFont}
+        aria-label={t.resetFont}
+        title={t.resetFont}
+      >
         <i className="fa-solid fa-font" aria-hidden="true"></i>
       </button>
 
-      <button onClick={decreaseFont} aria-label="Disminuir tamaño de fuente" title="Disminuir tamaño de fuente">
+      <button
+        onClick={decreaseFont}
+        aria-label={t.decreaseFont}
+        title={t.decreaseFont}
+      >
         <i className="fa-solid fa-minus" aria-hidden="true"></i>
       </button>
 
       <button
         onClick={toggleDarkMode}
         aria-pressed={darkMode}
-        aria-label={darkMode ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
-        title={darkMode ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
+        aria-label={darkMode ? t.toggleDarkModeOff : t.toggleDarkModeOn}
+        title={darkMode ? t.toggleDarkModeOff : t.toggleDarkModeOn}
       >
         {darkMode ? (
           <i className="fa-solid fa-sun" aria-hidden="true"></i>
