@@ -1,11 +1,13 @@
 :root {
   --primary-blue: #3366cc;
-  --primary-yellow: #f4b400;
+  --primary-yellow: #f4bf00;
   --primary-white: #ffffff;
   --primary-gray: #b3b2b2;
   --secondary-gray: #707070;
   --primary-light-gray: #f3f3f3;
   --primary-black: #000000;
+
+  --border-footer: #CCCCCC;
 
   --color-success: green;
   --color-error: red;
@@ -41,6 +43,7 @@
   --text-link-hover-color: var(--primary-blue);
 
   --logo-height: 60px;
+  --logo-height-small: 40px;
 }
 
 .dark-mode {
@@ -64,6 +67,7 @@
   --primary-light-gray: #3a3a3a;
 
   --logo-height: 60px;
+  --logo-height-small: 40px;
 
   --color-success: lightgreen;
   --color-error: salmon;
