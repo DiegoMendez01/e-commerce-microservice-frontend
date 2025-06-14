@@ -2,6 +2,7 @@ import React from 'react';
 import Card from '../Card/Card';
 import { useLanguage } from '../../hooks/useLanguage';
 import Translations from '../../Translations/Translations';
+import Button from '../Button/Button';
 
 export default function ProductCard({ product }) {
   const { name, price, availableQuantity, description, categoryName } = product;
@@ -22,9 +23,13 @@ export default function ProductCard({ product }) {
         </>
       }
       footer={
-        <button className="button" disabled={availableQuantity === 0}>
+        <Button
+          variant="outline"
+          disabled={availableQuantity === 0}
+          title={t.buyButton}
+        >
           {t.buyButton}
-        </button>
+        </Button>
       }
     />
   );
