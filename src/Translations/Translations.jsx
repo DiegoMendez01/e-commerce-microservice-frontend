@@ -49,6 +49,8 @@ const Translations = {
         toggleDarkModeOff: "Cambiar a modo claro",
         // Scroll to Top
         scrollToTop: "Volver al inicio",
+        // Categories
+        noCategory: "No hay categorías disponibles.",
     },
     en: {
         goHome: "Go to home page",
@@ -100,6 +102,8 @@ const Translations = {
         toggleDarkModeOff: "Switch to light mode",
         // Scroll to Top
         scrollToTop: "Back to top",
+        // Categories
+        noCategory: "No categories available.",
     },
 };
 
