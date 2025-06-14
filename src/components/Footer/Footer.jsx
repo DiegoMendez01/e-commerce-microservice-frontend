@@ -5,6 +5,7 @@ import logoDark from '/src/assets/comercio-electronico-negro.svg';
 import useDarkMode from '../../hooks/useDarkMode';
 import { useLanguage } from '../../hooks/useLanguage';
 import Translations from '../../Translations/Translations';
+import { Link } from 'react-router-dom';
 
 function Footer() {
     const isDarkMode = useDarkMode();
@@ -17,7 +18,7 @@ function Footer() {
                 <div className="footer-top-content">
                     <div className="footer-section">
                         <h4>{t.informationAditional}</h4>
-                        <p><a href="/sitemap" title={t.sitemap}>{t.sitemap}</a></p>
+                        <p><Link to="/sitemap" title={t.sitemap}>{t.sitemap}</Link></p>
                         <p><strong>{t.developer}:</strong> {t.developerName}</p>
                         <p><strong>{t.phone}:</strong> +57 3138127195</p>
                     </div>

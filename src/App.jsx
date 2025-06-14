@@ -9,6 +9,7 @@ import Footer from './components/Footer/Footer';
 
 import Home from './pages/Home/Home';
 import Sitemap from './pages/Sitemap/Sitemap';
+import Category from './pages/Category/Category';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/sitemap" element={<Sitemap />} />
+              <Route path="/categories" element={<Category />} />
             </Routes>
           </main>
           <AccessibilityMenu />
