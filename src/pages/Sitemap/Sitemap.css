@@ -1,0 +1,25 @@
+.sitemap {
+  padding: 2rem;
+}
+
+.sitemap h1 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.sitemap__list {
+  list-style-type: none;
+  padding-left: 1rem;
+}
+
+.sitemap__list li {
+  margin: 0.3rem 0;
+}
+
+.sitemap__list.depth-1 {
+  padding-left: 1.5rem;
+}
+
+.sitemap__list.depth-2 {
+  padding-left: 2.5rem;
+}

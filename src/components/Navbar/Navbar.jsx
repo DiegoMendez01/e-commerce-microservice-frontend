@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useLanguage } from '../../hooks/useLanguage';
 import Translations from '../../Translations/Translations';
 import NavbarItem from '../NavbarItem/NavbarItem';
+import getNavbarItems from '../../data/navbarItems';
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -26,30 +27,11 @@ export default function Navbar() {
   }, []);
 
   const handleItemClick = () => {
-    setMenuOpen(false);          // Cierra el menú hamburguesa
-    setOpenDropdownId(null);     // Cierra cualquier dropdown abierto
+    setMenuOpen(false);
+    setOpenDropdownId(null);
   };
 
-  const items = [
-    { label: t.goInicio, title: t.goHome, to: '/' },
-    {
-      label: t.products,
-      title: t.goProducts,
-      children: [
-        { label: 'Producto 1', title: 'Ver Producto 1', to: '/products/1' },
-        { label: 'Producto 2', title: 'Ver Producto 2', to: '/products/2' },
-      ],
-    },
-    {
-      label: t.categories,
-      title: t.goCategories,
-      to: '/categories',
-      children: [
-        { label: 'Categoría A', title: 'Ver Categoría A', to: '/categories/a' },
-        { label: 'Categoría B', title: 'Ver Categoría B', to: '/categories/b' },
-      ],
-    },
-  ];
+  const items = getNavbarItems(t)
 
   return (
     <nav ref={navbarRef} className="navbar" role="navigation" aria-label="Main navigation">
