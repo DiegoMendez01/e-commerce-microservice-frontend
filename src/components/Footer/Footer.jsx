@@ -16,19 +16,16 @@ function Footer() {
             <div className="footer-top">
                 <div className="footer-top-content">
                     <div className="footer-section">
-                        <h4>Mapa del sitio</h4>
-                        <ul>
-                            <li><a href="/">Inicio</a></li>
-                            <li><a href="/about">Acerca de</a></li>
-                            <li><a href="/services">Servicios</a></li>
-                            <li><a href="/contact">Contacto</a></li>
-                        </ul>
+                        <h4>{t.informationAditional}</h4>
+                        <p><a href="/sitemap" title={t.sitemap}>{t.sitemap}</a></p>
+                        <p><strong>{t.developer}:</strong> {t.developerName}</p>
+                        <p><strong>{t.phone}:</strong> +57 3138127195</p>
                     </div>
                     <div className="footer-section">
-                        <h4>Contacto</h4>
-                        <p><strong>Teléfono:</strong> +57 3138127195</p>
-                        <p><strong>Email:</strong> <a href="mailto:diegomendez01soft@gmail.com" title="Ir a correo">diegomendez01soft@gmail.com</a></p>
-                        <p><strong>Dirección:</strong> Chiquinquirá, Boyacá</p>
+                        <h4>{t.contact}</h4>
+                        <p><strong>{t.phone}:</strong> +57 3138127195</p>
+                        <p><strong>{t.email}:</strong> <a href="mailto:diegomendez01soft@gmail.com" title={t.goEmail}>diegomendez01soft@gmail.com</a></p>
+                        <p><strong>{t.address}:</strong> Chiquinquirá, Boyacá</p>
                     </div>
                 </div>
             </div>
@@ -40,10 +37,10 @@ function Footer() {
                         alt={t.logoAlt}
                         title={t.goHome}
                     />
-                    <span>E-commerce</span>
+                    <span>{t.appName || 'E-commerce'}</span>
                 </div>
                 <div className="footer-copy">
-                    © 2025 E-commerce. {t.rightsReserved}
+                    © 2025 {t.appName || 'E-commerce'}. {t.rightsReserved}
                 </div>
             </div>
         </footer>

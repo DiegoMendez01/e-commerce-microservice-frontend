@@ -24,9 +24,7 @@
   border: none;
   cursor: pointer;
   font-size: 0.9rem;
-  padding: 0.3rem;
   line-height: 1;
-  color: inherit;
 }
 
 .navbar__arrow:hover {

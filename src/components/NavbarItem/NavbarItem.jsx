@@ -37,7 +37,7 @@ export default function NavbarItem({
         )}
 
         {!isLink && (
-          <span className="navbar__link no__link" title={title}>
+          <span className="navbar__link no__link">
             {label}
           </span>
         )}
