@@ -58,6 +58,10 @@
     gap: 1rem;
   }
 
+  .navbar__item{
+    width: fit-content;
+  }
+
   .navbar__links.open {
     display: flex;
     margin-top: 0.5rem;

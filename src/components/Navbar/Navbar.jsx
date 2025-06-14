@@ -17,7 +17,9 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleClickOutside = (e) => {
-      if (navbarRef.current && !navbarRef.current.contains(e.target)) {
+      const isClickInsideOpenItem = e.target.closest('.navbar__item.open');
+
+      if (!isClickInsideOpenItem) {
         setOpenDropdownId(null);
       }
     };
@@ -52,7 +54,7 @@ export default function Navbar() {
             id={index}
             openDropdownId={openDropdownId}
             setOpenDropdownId={setOpenDropdownId}
-            onItemClick={handleItemClick} //
+            onItemClick={handleItemClick}
           />
         ))}
       </ul>
