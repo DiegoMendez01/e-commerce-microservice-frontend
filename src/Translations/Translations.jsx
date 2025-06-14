@@ -51,6 +51,14 @@ const Translations = {
         scrollToTop: "Volver al inicio",
         // Categories
         noCategory: "No hay categorías disponibles.",
+        // Table
+        name: "Nombre",
+        description: "Descripción",
+        view: 'Ver',
+        edit: 'Editar',
+        delete: 'Eliminar',
+        actions: 'Acciones',
+        filter: 'Filtrar',
     },
     en: {
         goHome: "Go to home page",
@@ -104,6 +112,14 @@ const Translations = {
         scrollToTop: "Back to top",
         // Categories
         noCategory: "No categories available.",
+        // Table
+        name: "Name",
+        description: "Description",
+        view: 'View',
+        edit: 'Edit',
+        delete: 'Delete',
+        actions: 'Actions',
+        filter: 'Filter',
     },
 };
 
