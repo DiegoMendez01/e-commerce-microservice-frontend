@@ -1,8 +1,13 @@
 import React from 'react';
 import './Pagination.css';
+import Translations from '../../Translations/Translations';
+import { useLanguage } from '../../hooks/useLanguage';
 
 export default function Pagination({ totalItems, itemsPerPage, currentPage, onPageChange }) {
   const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+  const { language } = useLanguage();
+  const t = Translations[language];
 
   if (totalPages <= 1) return null;
 
@@ -64,8 +69,9 @@ export default function Pagination({ totalItems, itemsPerPage, currentPage, onPa
             onClick={() => handlePageClick(1)}
             className="pagination__button"
             aria-label="Primera página"
+            title={t.firstPage}
           >
-            Primero
+            {t.firstPage}
           </button>
           <span className="pagination__separator" aria-hidden="true">|</span>
 
@@ -73,8 +79,9 @@ export default function Pagination({ totalItems, itemsPerPage, currentPage, onPa
             onClick={() => handlePageClick(currentPage - 1)}
             className="pagination__button"
             aria-label="Página anterior"
+            title={t.previousPage}
           >
-            Ant.
+            {t.previousPage}
           </button>
         </>
       )}
@@ -87,16 +94,18 @@ export default function Pagination({ totalItems, itemsPerPage, currentPage, onPa
             onClick={() => handlePageClick(currentPage + 1)}
             className="pagination__button"
             aria-label="Página siguiente"
+            title={t.nextPage}
           >
-            Sig.
+            {t.nextPage}
           </button>
           <span className="pagination__separator" aria-hidden="true">|</span>
           <button
             onClick={() => handlePageClick(totalPages)}
             className="pagination__button"
             aria-label="Última página"
+            title={t.lastPage}
           >
-            Último
+            {t.lastPage}
           </button>
         </>
       )}

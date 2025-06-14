@@ -27,6 +27,10 @@ const Translations = {
         informationAditional: "Información adicional",
         developer: "Desarrollador",
         developerName: "Diego Méndez",
+        nextPage: "Sig.",
+        previousPage: "Ant.",
+        firstPage: "Primero",
+        lastPage: "Último",
         // ProductCard-specific
         categoryLabel: "Categoría:",
         priceLabel: "Precio:",
@@ -73,6 +77,10 @@ const Translations = {
         informationAditional: "Additional information",
         developer: "Developer",
         developerName: "Diego Méndez",
+        nextPage: "Next",
+        previousPage: "Previous",
+        firstPage: "First",
+        lastPage: "Last",
         // ProductCard-specific
         categoryLabel: "Category:",
         priceLabel: "Price:",
