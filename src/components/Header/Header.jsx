@@ -51,14 +51,14 @@ export default function Header() {
                     >
                         <i className="fab fa-twitter" aria-hidden="true"></i>
                     </a>
-                    <a
-                        href="/sitemap"
+                    <Link
+                        to="/sitemap"
                         aria-label={t.sitemap}
                         title={t.goSitemap}
                         className="header__socials--sitemap"
                     >
                         <i className="fas fa-sitemap" aria-hidden="true"></i>
-                    </a>
+                    </Link>
                 </nav>
             </header>
         </>
