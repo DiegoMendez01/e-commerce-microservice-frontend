@@ -62,6 +62,10 @@
     width: fit-content;
   }
 
+  .navbar__submenu .navbar__item{
+    width: 100%;
+  }
+
   .navbar__links.open {
     display: flex;
     margin-top: 0.5rem;

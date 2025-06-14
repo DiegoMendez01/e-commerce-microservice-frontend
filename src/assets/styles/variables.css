@@ -1,36 +1,30 @@
 :root {
+  /* Colores base */
+  --primary-black: #000000;
+  --primary-white: #ffffff;
   --primary-blue: #3366cc;
   --primary-yellow: #f4bf00;
-  --primary-white: #ffffff;
   --primary-gray: #b3b2b2;
-  --secondary-gray: #707070;
   --primary-light-gray: #f3f3f3;
-  --primary-black: #000000;
+  --secondary-gray: #707070;
 
-  --border-footer: #CCCCCC;
-
+  /* Utilitarios */
+  --border-footer: #cccccc;
   --color-success: green;
   --color-error: red;
 
-  --accent-bg: var(--primary-blue);
-  --accent-fg: var(--primary-white);
-  --btn-bg: var(--primary-white);
-  --btn-fg: var(--primary-blue);
-  --btn-fg-black: var(--primary-black);
-  --btn-active-bg: var(--primary-white);
-  --btn-active-fg: var(--primary-blue);
-  --btn-hover-bg: var(--primary-white);
-  --btn-hover-fg: var(--primary-blue);
-
+  /* Tipografía */
   --font-family-base: Arial, Helvetica, sans-serif;
   --line-height-base: 1.5;
+
   --font-weight-regular: 400;
   --font-weight-semibold: 600;
   --font-weight-bold: 700;
 
-  --font-size-base: 1rem;
   --font-size-small: 0.875rem;
+  --font-size-base: 1rem;
   --font-size-large: 1.25rem;
+
   --font-size-h1: 2.5rem;
   --font-size-h2: 2rem;
   --font-size-h3: 1.75rem;
@@ -38,37 +32,189 @@
   --font-size-h5: 1.25rem;
   --font-size-h6: 1rem;
 
+  /* Texto y enlaces */
   --text-color: var(--primary-black);
   --text-link-color: var(--primary-blue);
   --text-link-hover-color: var(--primary-blue);
 
+  /* Branding / logos */
   --logo-height: 60px;
   --logo-height-small: 40px;
+
+  /* Elementos de interfaz */
+  --accent-bg: var(--primary-blue);
+  --accent-fg: var(--primary-white);
+
+  /* Botones genéricos */
+  --btn-bg: var(--primary-white);
+  --btn-fg: var(--primary-blue);
+  --btn-fg-black: var(--primary-black);
+  --btn-hover-bg: var(--primary-white);
+  --btn-hover-fg: var(--primary-blue);
+  --btn-active-bg: var(--primary-white);
+  --btn-active-fg: var(--primary-blue);
+
+  /* Botón Primary */
+  --btn-primary-bg: var(--primary-yellow);
+  --btn-primary-fg: var(--primary-black);
+  --btn-primary-hover-bg: #e0ac00;
+  --btn-primary-hover-fg: var(--primary-black);
+  --btn-primary-active-bg: #d49e00;
+  --btn-primary-active-fg: var(--primary-black);
+
+  /* Botón Secondary */
+  --btn-secondary-bg: var(--primary-blue);
+  --btn-secondary-fg: var(--primary-white);
+  --btn-secondary-hover-bg: #274baf;
+  --btn-secondary-hover-fg: var(--primary-white);
+  --btn-secondary-active-bg: #1f3d99;
+  --btn-secondary-active-fg: var(--primary-white);
+
+  /* Botón Danger */
+  --btn-danger-bg: var(--color-error);
+  --btn-danger-fg: var(--primary-white);
+  --btn-danger-hover-bg: #c62828;
+  --btn-danger-hover-fg: var(--primary-white);
+  --btn-danger-active-bg: #b71c1c;
+  --btn-danger-active-fg: var(--primary-white);
+
+  /* Botón Outline */
+  --btn-outline-bg: transparent;
+  --btn-outline-fg: var(--primary-blue);
+  --btn-outline-border: var(--primary-blue);
+  --btn-outline-hover-bg: var(--primary-blue);
+  --btn-outline-hover-fg: var(--primary-white);
+  --btn-outline-hover-border: var(--primary-blue);
+  --btn-outline-active-bg: #274baf;
+  --btn-outline-active-fg: var(--primary-white);
+  --btn-outline-active-border: #274baf;
+
+  /* Botón Link */
+  --btn-link-bg: transparent;
+  --btn-link-fg: var(--primary-blue);
+  --btn-link-hover-bg: transparent;
+  --btn-link-hover-fg: var(--primary-yellow);
+  --btn-link-active-bg: transparent;
+  --btn-link-active-fg: #d49e00;
+
+  /* Botón Disabled */
+  --btn-disabled-bg: var(--primary-gray);
+  --btn-disabled-fg: var(--primary-white);
+  --btn-disabled-border: var(--primary-gray);
+
+  /* Botón Light */
+  --btn-light-bg: var(--primary-light-gray);
+  --btn-light-fg: var(--primary-black);
+  --btn-light-hover-bg: #e6e6e6;
+  --btn-light-hover-fg: var(--primary-black);
+  --btn-light-active-bg: #cccccc;
+  --btn-light-active-fg: var(--primary-black);
+
+  /* Botón Success */
+  --btn-success-bg: var(--color-success);
+  --btn-success-fg: var(--primary-white);
+  --btn-success-hover-bg: #2e7d32;
+  --btn-success-hover-fg: var(--primary-white);
+  --btn-success-active-bg: #1b5e20;
+  --btn-success-active-fg: var(--primary-white);
+
+  /* Botón Warning */
+  --btn-warning-bg: var(--primary-yellow);
+  --btn-warning-fg: var(--primary-black);
+  --btn-warning-hover-bg: #e0ac00;
+  --btn-warning-hover-fg: var(--primary-black);
+  --btn-warning-active-bg: #d49e00;
+  --btn-warning-active-fg: var(--primary-black);
+
+  /* Botón Info */
+  --btn-info-bg: #17a2b8;
+  --btn-info-fg: var(--primary-white);
+  --btn-info-hover-bg: #138496;
+  --btn-info-hover-fg: var(--primary-white);
+  --btn-info-active-bg: #11707f;
+  --btn-info-active-fg: var(--primary-white);
 }
 
 .dark-mode {
-  --accent-bg: #121a2a;
-  --accent-fg: var(--primary-white);
+  /* Colores alternos */
+  --primary-light-gray: #3a3a3a;
+  --color-success: lightgreen;
+  --color-error: salmon;
 
-  --btn-bg: #1c2541;
-  --btn-fg: var(--primary-white);
-  --btn-fg-black: var(--primary-white);
-
-  --btn-active-bg: #3366cc;
-  --btn-active-fg: var(--primary-white);
-
-  --btn-hover-bg: #274baf;
-  --btn-hover-fg: var(--primary-white);
-
+  /* Texto y enlaces */
   --text-color: var(--primary-white);
   --text-link-color: var(--primary-blue);
   --text-link-hover-color: var(--primary-yellow);
 
-  --primary-light-gray: #3a3a3a;
-
+  /* Branding */
   --logo-height: 60px;
   --logo-height-small: 40px;
 
-  --color-success: lightgreen;
-  --color-error: salmon;
+  /* Elementos de interfaz */
+  --accent-bg: #121a2a;
+  --accent-fg: var(--primary-white);
+
+  /* Botones genéricos */
+  --btn-bg: #1c2541;
+  --btn-fg: var(--primary-white);
+  --btn-fg-black: var(--primary-white);
+  --btn-hover-bg: #274baf;
+  --btn-hover-fg: var(--primary-white);
+  --btn-active-bg: #3366cc;
+  --btn-active-fg: var(--primary-white);
+
+  /* Botón Primary */
+  --btn-primary-hover-bg: #f4bf00;
+  --btn-primary-active-bg: #f4bf00;
+
+  /* Botón Secondary */
+  --btn-secondary-hover-bg: #203a90;
+  --btn-secondary-active-bg: #1a2f75;
+
+  /* Botón Danger */
+  --btn-danger-hover-bg: #ff4d4d;
+  --btn-danger-active-bg: #cc0000;
+
+  /* Outline */
+  --btn-outline-bg: transparent;
+  --btn-outline-fg: var(--primary-white);
+  --btn-outline-border: var(--primary-white);
+  --btn-outline-hover-bg: var(--primary-white);
+  --btn-outline-hover-fg: var(--primary-black);
+  --btn-outline-hover-border: var(--primary-white);
+  --btn-outline-active-bg: #f4f4f4;
+  --btn-outline-active-fg: var(--primary-black);
+  --btn-outline-active-border: #f4f4f4;
+
+  /* Link */
+  --btn-link-fg: var(--primary-yellow);
+  --btn-link-hover-fg: var(--primary-white);
+  --btn-link-active-fg: var(--primary-gray);
+
+  /* Disabled */
+  --btn-disabled-bg: #555;
+  --btn-disabled-fg: #ccc;
+  --btn-disabled-border: #555;
+
+  /* Light */
+  --btn-light-bg: #333;
+  --btn-light-fg: var(--primary-white);
+  --btn-light-hover-bg: #444;
+  --btn-light-hover-fg: var(--primary-white);
+  --btn-light-active-bg: #555;
+  --btn-light-active-fg: var(--primary-white);
+
+  /* Success */
+  --btn-success-bg: lightgreen;
+  --btn-success-hover-bg: #66bb6a;
+  --btn-success-active-bg: #388e3c;
+
+  /* Warning */
+  --btn-warning-hover-bg: #e6b800;
+  --btn-warning-active-bg: #cca300;
+
+  /* Info */
+  --btn-info-bg: #138496;
+  --btn-info-hover-bg: #11707f;
+  --btn-info-active-bg: #0d5f6b;
 }

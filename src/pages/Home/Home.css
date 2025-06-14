@@ -1,16 +1,7 @@
-body, .home {
+.home {
+  margin: 0 auto;
   background-color: #ffffff;
   color: #000000;
-}
-
-.home {
-  padding: 1.5rem 4rem;
-  margin: 0 auto;
-}
-
-h1 {
-  color: black;
-  font-size: 2rem;
 }
 
 .product-list {

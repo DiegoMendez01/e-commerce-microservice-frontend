@@ -1,0 +1,198 @@
+/* BASE */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  white-space: nowrap;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: var(--font-weight-bold);
+  font-family: var(--font-family-base);
+  background-color: var(--btn-bg);
+  color: var(--btn-fg);
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
+}
+
+/* SIZES */
+.btn--sm {
+  padding: 0.25rem 0.5rem;
+  font-size: var(--font-size-small);
+}
+
+.btn--md {
+  padding: 0.5rem 1rem;
+  font-size: var(--font-size-base);
+}
+
+.btn--lg {
+  padding: 0.75rem 1.5rem;
+  font-size: var(--font-size-large);
+}
+
+/* COMMON STATES */
+.btn:disabled,
+.btn--disabled,
+.btn--disabled:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.btn:focus {
+  outline: 2px solid var(--primary-yellow);
+  outline-offset: 2px;
+}
+
+.btn:active {
+  background-color: var(--btn-active-bg);
+  color: var(--btn-active-fg);
+  transform: scale(0.98);
+}
+
+.btn:hover {
+  background-color: var(--btn-hover-bg);
+  color: var(--btn-hover-fg);
+}
+
+/* VARIANTES */
+.btn--primary {
+  background-color: var(--btn-primary-bg);
+  color: var(--btn-primary-fg);
+}
+
+.btn--primary:hover {
+  background-color: var(--btn-primary-hover-bg);
+  color: var(--btn-primary-hover-fg);
+}
+
+.btn--primary:active {
+  background-color: var(--btn-primary-active-bg);
+  color: var(--btn-primary-active-fg);
+}
+
+.btn--secondary {
+  background-color: var(--btn-secondary-bg);
+  color: var(--btn-secondary-fg);
+}
+
+.btn--secondary:hover {
+  background-color: var(--btn-secondary-hover-bg);
+  color: var(--btn-secondary-hover-fg);
+}
+
+.btn--secondary:active {
+  background-color: var(--btn-secondary-active-bg);
+  color: var(--btn-secondary-active-fg);
+}
+
+.btn--danger {
+  background-color: var(--btn-danger-bg);
+  color: var(--btn-danger-fg);
+}
+
+.btn--danger:hover {
+  background-color: var(--btn-danger-hover-bg);
+  color: var(--btn-danger-hover-fg);
+}
+
+.btn--danger:active {
+  background-color: var(--btn-danger-active-bg);
+  color: var(--btn-danger-active-fg);
+}
+
+.btn--success {
+  background-color: var(--btn-success-bg);
+  color: var(--btn-success-fg);
+}
+
+.btn--success:hover {
+  background-color: var(--btn-success-hover-bg);
+  color: var(--btn-success-hover-fg);
+}
+
+.btn--success:active {
+  background-color: var(--btn-success-active-bg);
+  color: var(--btn-success-active-fg);
+}
+
+.btn--warning {
+  background-color: var(--btn-warning-bg);
+  color: var(--btn-warning-fg);
+}
+
+.btn--warning:hover {
+  background-color: var(--btn-warning-hover-bg);
+  color: var(--btn-warning-hover-fg);
+}
+
+.btn--warning:active {
+  background-color: var(--btn-warning-active-bg);
+  color: var(--btn-warning-active-fg);
+}
+
+.btn--info {
+  background-color: var(--btn-info-bg);
+  color: var(--btn-info-fg);
+}
+
+.btn--info:hover {
+  background-color: var(--btn-info-hover-bg);
+  color: var(--btn-info-hover-fg);
+}
+
+.btn--info:active {
+  background-color: var(--btn-info-active-bg);
+  color: var(--btn-info-active-fg);
+}
+
+.btn--light {
+  background-color: var(--btn-light-bg);
+  color: var(--btn-light-fg);
+}
+
+.btn--light:hover {
+  background-color: var(--btn-light-hover-bg);
+  color: var(--btn-light-hover-fg);
+}
+
+.btn--light:active {
+  background-color: var(--btn-light-active-bg);
+  color: var(--btn-light-active-fg);
+}
+
+/* ESPECIALES */
+.btn--outline {
+  background-color: transparent;
+  border: 2px solid var(--primary-yellow);
+  color: var(--btn-fg-black);
+}
+
+.btn--outline:hover,
+.btn--outline:active {
+  background-color: var(--primary-yellow);
+  color: var(--primary-black);
+}
+
+.btn--link {
+  background-color: var(--btn-link-bg);
+  color: var(--btn-link-fg);
+  border: none;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.btn--link:hover {
+  background-color: var(--btn-link-hover-bg);
+  color: var(--btn-link-hover-fg);
+  text-decoration: none;
+}
+
+.btn--link:active {
+  background-color: var(--btn-link-active-bg);
+  color: var(--btn-link-active-fg);
+}
