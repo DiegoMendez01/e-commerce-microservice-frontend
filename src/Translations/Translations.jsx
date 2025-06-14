@@ -59,6 +59,11 @@ const Translations = {
         delete: 'Eliminar',
         actions: 'Acciones',
         filter: 'Filtrar',
+        // Modal
+        confirmDelete: "Confirmar eliminación",
+        deleteConfirmation: "¿Estás seguro de que deseas eliminar la categoría '%s'?",
+        confirm: "Confirmar",
+        cancel: "Cancelar",
     },
     en: {
         goHome: "Go to home page",
@@ -120,6 +125,11 @@ const Translations = {
         delete: 'Delete',
         actions: 'Actions',
         filter: 'Filter',
+        // Modal
+        confirmDelete: "Confirm deletion",
+        deleteConfirmation: "Are you sure you want to delete the category '%s'?",
+        confirm: "Confirm",
+        cancel: "Cancel",
     },
 };
 

@@ -97,7 +97,7 @@ export default function Table({ columns = [], data = [], actions = [] }) {
                                                 className={`btn btn--${action.variant || 'primary'}`}
                                                 onClick={() => action.onClick(row)}
                                             >
-                                                {action.icon && <i className={action.icon} aria-hidden="true" />} {action.label}
+                                                {action.icon && <i className={action.icon} aria-hidden="true" />}
                                             </button>
                                         ))}
                                     </td>
@@ -127,7 +127,7 @@ export default function Table({ columns = [], data = [], actions = [] }) {
                                             className={`btn btn--${action.variant || 'primary'}`}
                                             onClick={() => action.onClick(row)}
                                         >
-                                            {action.icon && <i className={action.icon} aria-hidden="true" />} {action.label}
+                                            {action.icon && <i className={action.icon} aria-hidden="true" />}
                                         </button>
                                     ))}
                                 </div>

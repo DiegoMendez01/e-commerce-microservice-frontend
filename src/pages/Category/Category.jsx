@@ -8,11 +8,14 @@ import SearchBar from '../../components/SearchBar/SearchBar';
 import Table from '../../components/Table/Table';
 import Pagination from '../../components/Pagination/Pagination';
 import usePagination from '../../hooks/usePagination';
+import Modal from '../../components/Modal/Modal';
 
-export default function Home() {
+export default function Category() {
     const [categories, setCategories] = useState([]);
     const [originalProducts, setOriginalCategories] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedCategory, setSelectedCategory] = useState(null);
 
     const { currentPage, setCurrentPage, resetPage } = usePagination();
     const itemsPerPage = 5;
@@ -24,7 +27,6 @@ export default function Home() {
         async function loadData() {
             try {
                 const data = await fetchCategories();
-                console.log('Categorías cargadas:', data);
                 setCategories(data);
                 setOriginalCategories(data);
             } catch (error) {
@@ -52,6 +54,20 @@ export default function Home() {
         }
     };
 
+    const openDeleteModal = (category) => {
+        setSelectedCategory(category);
+        setIsModalOpen(true);
+    };
+
+    const closeDeleteModal = () => {
+        setIsModalOpen(false);
+        setSelectedCategory(null);
+    };
+
+    const handleDeleteConfirm = () => {
+        closeDeleteModal();
+    };
+
     const columns = [
         { label: t.name, accessor: 'name', filter: true },
         { label: t.description, accessor: 'description', filter: true },
@@ -61,49 +77,61 @@ export default function Home() {
         {
             icon: 'fas fa-eye',
             variant: 'outline',
+            label: t.view,
             onClick: (row) => alert(`Ver categoría: ${row.name}`)
         },
         {
             icon: 'fas fa-edit',
+            label: t.edit,
             onClick: (row) => alert(`Editar categoría: ${row.name}`)
         },
         {
             icon: 'fas fa-trash',
+            label: t.delete,
             variant: 'danger',
-            onClick: (row) => {
-                if (window.confirm(`¿Eliminar la categoría ${row.name}?`)) {
-                    // lógica de eliminación
-                }
-            }
+            onClick: (row) => openDeleteModal(row)
         }
     ];
 
-    // Paginación
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentItems = categories.slice(indexOfFirstItem, indexOfLastItem);
 
     return (
-        <div className="page-category">
-            <SearchBar onSearch={handleSearch} />
-            <div>
-                <HeadingH2>{t.categories}</HeadingH2>
+        <>
+            <div className="page-category">
+                <SearchBar onSearch={handleSearch} />
+                <div>
+                    <HeadingH2>{t.categories}</HeadingH2>
+                </div>
+                {errorMessage ? (
+                    <div className="error-message">{errorMessage}</div>
+                ) : categories.length === 0 ? (
+                    <div className="error-message">{t.noCategory}</div>
+                ) : (
+                    <>
+                        <Table columns={columns} data={currentItems} actions={actions} />
+                        <Pagination
+                            totalItems={categories.length}
+                            itemsPerPage={itemsPerPage}
+                            currentPage={currentPage}
+                            onPageChange={setCurrentPage}
+                        />
+                    </>
+                )}
             </div>
-            {errorMessage ? (
-                <div className="error-message">{errorMessage}</div>
-            ) : categories.length === 0 ? (
-                <div className="error-message">{t.noCategory}</div>
-            ) : (
-                <>
-                    <Table columns={columns} data={currentItems} actions={actions} />
-                    <Pagination
-                        totalItems={categories.length}
-                        itemsPerPage={itemsPerPage}
-                        currentPage={currentPage}
-                        onPageChange={setCurrentPage}
-                    />
-                </>
-            )}
-        </div>
+
+            <Modal
+                isOpen={isModalOpen}
+                title={t.confirmDelete}
+                icon="fa-trash"
+                onClose={closeDeleteModal}
+                onConfirm={handleDeleteConfirm}
+                confirmText={t.confirm}
+                cancelText={t.cancel}
+            >
+                <p>{t.deleteConfirmation.replace('%s', selectedCategory?.name)}</p>
+            </Modal>
+        </>
     );
 }
