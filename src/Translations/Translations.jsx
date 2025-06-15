@@ -73,7 +73,7 @@ const Translations = {
         clearFilters: 'Limpiar',
         // Modal
         confirmDelete: "Confirmar eliminación",
-        deleteConfirmation: "¿Estás seguro de que deseas eliminar la categoría '%s'?",
+        deleteConfirmation: "¿Estás seguro de que deseas eliminar %type% '%name%'?",
         confirm: "Confirmar",
         cancel: "Cancelar",
         // Toast
@@ -91,6 +91,14 @@ const Translations = {
         // Customers
         goCustomers: "Ir a clientes",
         customers: "Clientes",
+        customer: "Cliente",
+        firstName: "Primer nombre",
+        lastName: "Segundo nombre",
+        errorLoadingCustomers: "Error al cargar los clientes",
+        noCustomer: "No hay clientes disponibles.",
+        street: "Calle",
+        houseNumber: "Número casa",
+        zipCode: "Código postal",
     },
     en: {
         goHome: "Go to home page",
@@ -166,7 +174,7 @@ const Translations = {
         clearFilters: "Clear",
         // Modal
         confirmDelete: "Confirm deletion",
-        deleteConfirmation: "Are you sure you want to delete the category '%s'?",
+        deleteConfirmation: "Are you sure you want to delete the %type% '%name%'?",
         confirm: "Confirm",
         cancel: "Cancel",
         // Toast
@@ -184,6 +192,14 @@ const Translations = {
         // Customers
         goCustomers: "Go to customers",
         customers: "Customers",
+        customer: "Customer",
+        firstName: "First Name",
+        lastName: "Last Name",
+        errorLoadingCustomers: "Error loading customers",
+        noCustomer: "No customers available.",
+        street: "Street",
+        houseNumber: "House Number",
+        zipCode: "Zip code",
     },
 };
 

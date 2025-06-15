@@ -224,7 +224,11 @@ export default function Product() {
                 confirmText={t.confirm}
                 cancelText={t.cancel}
             >
-                <p>{t.deleteConfirmation.replace('%s', selectedProduct?.name)}</p>
+                <p>
+                    {t.deleteConfirmation
+                        .replace('%type%', t.product.toLowerCase())
+                        .replace('%name%', selectedProduct?.name)}
+                </p>
             </Modal>
 
             {toast && (

@@ -222,7 +222,11 @@ export default function Category() {
                 confirmText={t.confirm}
                 cancelText={t.cancel}
             >
-                <p>{t.deleteConfirmation.replace('%s', selectedCategory?.name)}</p>
+                <p>
+                    {t.deleteConfirmation
+                        .replace('%type%', t.category.toLowerCase())
+                        .replace('%name%', selectedCategory?.name)}
+                </p>
             </Modal>
             {toast && (
                 <Toast

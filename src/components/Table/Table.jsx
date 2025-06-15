@@ -68,7 +68,7 @@ export default function Table({ columns = [], data = [], actions = [] }) {
                                                             ? 'fa-sort-up'
                                                             : 'fa-sort-down'
                                                         : 'fa-sort'
-                                                    } sort-icon`}
+                                                        } sort-icon`}
                                                     onClick={() => handleSort(col.accessor)}
                                                     style={{ cursor: 'pointer' }}
                                                     role="button"
@@ -98,7 +98,7 @@ export default function Table({ columns = [], data = [], actions = [] }) {
                             <tr key={rowIndex}>
                                 {columns.map(col => (
                                     <td key={col.accessor}>
-                                        {col.render ? col.render(row[col.accessor], row) : row[col.accessor]}
+                                        {col.render ? col.render(row) : row[col.accessor]}
                                     </td>
                                 ))}
                                 {actions.length > 0 && (
@@ -127,7 +127,7 @@ export default function Table({ columns = [], data = [], actions = [] }) {
                                 <div className="card-field" key={col.accessor}>
                                     <div className="card-field-label">{col.label}:</div>
                                     <div className="card-field-value">
-                                        {col.render ? col.render(row[col.accessor], row) : row[col.accessor]}
+                                        {col.render ? col.render(row) : row[col.accessor]}
                                     </div>
                                 </div>
                             ))}
