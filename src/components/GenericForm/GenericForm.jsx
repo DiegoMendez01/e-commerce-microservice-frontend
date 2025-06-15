@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './GenericForm.css';
 import Button from '../Button/Button';
+import { useLanguage } from '../../hooks/useLanguage';
+import Translations from '../../Translations/Translations';
 
 export default function GenericForm({
     title,
@@ -10,6 +12,9 @@ export default function GenericForm({
     submitLabel = 'Guardar'
 }) {
     const [formData, setFormData] = useState({});
+
+    const { language } = useLanguage();
+    const t = Translations[language];
 
     useEffect(() => {
         const defaults = {};
@@ -36,7 +41,7 @@ export default function GenericForm({
         <>
 
             <div className="generic-form-banner">
-                <h2 className="generic-form-heading">Formulario</h2>
+                <h2 className="generic-form-heading">{t.titleForm}</h2>
             </div>
             <div className="generic-form-wrapper">
                 {title && (

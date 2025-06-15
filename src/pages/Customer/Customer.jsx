@@ -83,8 +83,8 @@ export default function Customer() {
         }
     };
 
-    const openDeleteModal = (category) => {
-        setSelectedCustomer(category);
+    const openDeleteModal = (customer) => {
+        setSelectedCustomer(customer);
         setIsModalOpen(true);
     };
 
@@ -96,10 +96,21 @@ export default function Customer() {
     const handleDeleteConfirm = async () => {
         if (!selectedCustomer) return;
 
-        const deletedName = selectedCustomer.name;
+        let verb, message;
 
         try {
             await deleteCustomer(selectedCustomer.id, request);
+
+            const entityName = t.customer || 'Customer';
+            const gender = t.customerGender || 'o';
+
+            const getGenderedVerb = (baseVerb) => `${baseVerb}${gender}`;
+
+            const getMessage = (template, verb) =>
+                template.replace('%s', entityName).replace('%v', verb);
+
+            verb = getGenderedVerb('eliminad');
+            message = getMessage(t.deletedSuccessfully, verb);
 
             setCustomers(prev =>
                 prev.filter(cat => cat.id !== selectedCustomer.id)
@@ -109,7 +120,7 @@ export default function Customer() {
             );
 
             closeDeleteModal();
-            showToast(`${deletedName || ''} ${t.deletedSuccessfully}`);
+            showToast(message);
         } catch (error) {
             console.error('Error eliminando el cliente:', error);
         }

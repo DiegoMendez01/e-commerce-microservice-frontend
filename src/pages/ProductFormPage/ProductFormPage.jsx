@@ -133,7 +133,7 @@ export default function ProductFormPage() {
 
             {!loading && !error && (
                 <GenericForm
-                    title={id ? t.editCategory : t.createCategory}
+                    title={id ? t.editProduct : t.createProduct}
                     fields={fields}
                     initialData={initialData}
                     onSubmit={handleSubmit}

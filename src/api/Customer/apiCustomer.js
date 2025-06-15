@@ -10,7 +10,7 @@ export function searchCustomers(name, request) {
   return request(`/customers/search?name=${encodeURIComponent(name)}`);
 }
 
-export function createProduct(customerData, request) {
+export function createCustomer(customerData, request) {
   return request("/customers", {
     method: "POST",
     body: customerData,
