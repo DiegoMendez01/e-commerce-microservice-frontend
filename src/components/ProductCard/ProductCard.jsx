@@ -25,13 +25,13 @@ export default function ProductCard({ product }) {
     <>
       <Card
         title={name}
-        subtitle={`${t.categoryLabel} ${categoryName}`}
+        subtitle={`${t.categoryLabel}: ${categoryName}`}
         content={
           <>
             <p className="card-body">{description}</p>
-            <p className="card-body"><strong>{t.priceLabel}</strong> ${price.toFixed(2)}</p>
+            <p className="card-body"><strong>{t.priceLabel}:</strong> ${price.toFixed(2)}</p>
             <p className={`card-body ${availableQuantity > 0 ? 'in-stock' : 'out-stock'}`}>
-              {availableQuantity > 0 ? `${t.quantityLabel} ${availableQuantity}` : t.outOfStock}
+              {availableQuantity > 0 ? `${t.quantityLabel}: ${availableQuantity}` : t.outOfStock}
             </p>
           </>
         }

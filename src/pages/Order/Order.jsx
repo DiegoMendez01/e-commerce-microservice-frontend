@@ -116,7 +116,7 @@ export default function Order() {
         {
             icon: 'fas fa-eye',
             label: t.view,
-            onClick: (row) => navigate(`/orders/edit/${row.id}`)
+            onClick: (row) => navigate(`/orders/${row.id}`)
         },
     ];
 

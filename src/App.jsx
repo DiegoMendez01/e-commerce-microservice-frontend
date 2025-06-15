@@ -19,6 +19,7 @@ import Customer from './pages/Customer/Customer';
 import CustomerFormPage from './pages/CustomerFormPage/CustomerFormPage';
 import Cart from './pages/Cart/Cart';
 import Order from './pages/Order/Order';
+import Invoice from './pages/Invoice/Invoice';
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
                 <Route path="/customers/create" element={<CustomerFormPage />} />
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/orders" element={<Order />} />
+                <Route path="/orders/:id" element={<Invoice />} />
               </Routes>
             </main>
             <AccessibilityMenu />

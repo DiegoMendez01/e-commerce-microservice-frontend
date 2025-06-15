@@ -36,9 +36,10 @@ const Translations = {
         create: "Crear",
         store: "Tienda",
         // ProductCard-specific
-        categoryLabel: "Categoría:",
-        priceLabel: "Precio:",
-        quantityLabel: "Cantidad:",
+        categoryLabel: "Categoría",
+        priceLabel: "Precio",
+        quantityLabel: "Cantidad",
+        subtotal: "Subtotal",
         outOfStock: "Agotado",
         buyButton: "Comprar",
         noProducts: "No hay productos disponibles.",
@@ -130,7 +131,7 @@ const Translations = {
         emptyCart: "Tu carrito está vacío.",
         removeButton: "Eliminar",
         orderSummary: "Resumen del Pedido",
-        totalLabel: "Total:",
+        totalLabel: "Total",
         customerIdPlaceholder: "ID del Cliente",
         paymentMethodLabel: "Método de Pago",
         confirmOrder: "Confirmar Orden",
@@ -155,6 +156,10 @@ const Translations = {
         customerId: "Cliente ID",
         noOrder: "No hay pedidos disponibles.",
         errorLoadingOrders: "Error al cargar los pedidos",
+        // Invoice
+        invoiceView: "Factura",
+        noInvoice: "La factura no tiene productos",
+        failedInvoice: "Error al cargar la factura.",
     },
     en: {
         goHome: "Go to home page",
@@ -193,9 +198,10 @@ const Translations = {
         create: "Create",
         store: "Store",
         // ProductCard-specific
-        categoryLabel: "Category:",
-        priceLabel: "Price:",
-        quantityLabel: "Quantity:",
+        categoryLabel: "Category",
+        priceLabel: "Price",
+        quantityLabel: "Quantity",
+        subtotal: "Subtotal",
         outOfStock: "Out of stock",
         buyButton: "Buy",
         noProducts: "No products available.",
@@ -287,7 +293,7 @@ const Translations = {
         emptyCart: "Your cart is empty.",
         removeButton: "Remove",
         orderSummary: "Order Summary",
-        totalLabel: "Total:",
+        totalLabel: "Total",
         customerIdPlaceholder: "Customer ID",
         paymentMethodLabel: "Payment Method",
         confirmOrder: "Confirm Order",
@@ -312,6 +318,10 @@ const Translations = {
         customerId: "Customer ID",
         noOrder: "No orders available",
         errorLoadingOrders: "Error loading orders",
+        // Invoice
+        invoiceView: "Invoice",
+        noInvoice: "This order has no items.",
+        failedInvoice: "Failed to load invoice.",
     },
 };
 
