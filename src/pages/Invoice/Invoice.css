@@ -9,6 +9,11 @@
   color: var(--text-color);
 }
 
+.invoice-qr {
+  margin-top: 2rem;
+  text-align: center;
+}
+
 .invoice-top {
   display: flex;
   justify-content: space-between;

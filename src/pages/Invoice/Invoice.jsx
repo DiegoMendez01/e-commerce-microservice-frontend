@@ -12,6 +12,7 @@ import { fetchProductById } from '../../api/Product/apiProduct';
 import { fetchCustomerById } from '../../api/Customer/apiCustomer';
 import html2pdf from 'html2pdf.js';
 import Button from '../../components/Button/Button';
+import { QRCodeCanvas } from 'qrcode.react';
 
 export default function Invoice() {
     const { id } = useParams();
@@ -84,6 +85,13 @@ export default function Invoice() {
         })
         : [];
 
+    const qrMessage = `
+        ${t.invoiceView} #${id}
+        ${t.customer}: ${customerName || order?.customerId}
+        ${t.totalLabel}: $${order?.totalAmount?.toFixed(2)}
+        ${t.qrThanks || 'Gracias por tu compra'}
+        `;
+
     return (
         <div className="invoice-page">
             <Breadcrumb
@@ -150,6 +158,15 @@ export default function Invoice() {
                             <div className="total-label">{t.totalLabel}:</div>
                             <div className="total-amount">${order.totalAmount.toFixed(2)}</div>
                         </footer>
+
+                        <div className="invoice-qr">
+                            <h4>{t.qrLabel || 'Scan for details'}</h4>
+                            <QRCodeCanvas
+                                value={qrMessage}
+                                size={128}
+                                level="H"
+                            />
+                        </div>
                     </div>
                     <div className="pdf-button-container">
                         <Button variant="outline" onClick={handleDownloadPDF}>

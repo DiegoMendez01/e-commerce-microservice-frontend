@@ -163,7 +163,9 @@ const Translations = {
         completed: "COMPLETADO",
         date: "Fecha",
         status: "Estado",
-        downloadPDF: "Descargar PDF"
+        downloadPDF: "Descargar PDF",
+        qrLabel: "Escanea para más detalle",
+        qrThanks: 'Gracias por tu compra',
     },
     en: {
         goHome: "Go to home page",
@@ -329,7 +331,9 @@ const Translations = {
         completed: "COMPLETED",
         date: "Date",
         status: "Status",
-        downloadPDF: "Download PDF"
+        downloadPDF: "Download PDF",
+        qrLabel: "Scan for details",
+        qrThanks: 'Thank you for your purchase',
     },
 };
 
