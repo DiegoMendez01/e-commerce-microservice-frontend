@@ -20,7 +20,7 @@
 }
 
 .footer-top-content {
-  background-color: var(--primary-light-gray);
+  background-color: var(--primary-white);
   border-radius: 20px;
   padding: 2rem;
   position: relative;
@@ -102,6 +102,10 @@
 .dark-mode .footer-bottom {
   background-color: var(--accent-bg);
   color: var(--accent-fg);
+}
+
+.dark-mode .footer-top-content {
+  background-color: var(--accent-bg);
 }
 
 .dark-mode .footer-section h4,

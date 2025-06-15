@@ -152,6 +152,7 @@
 
   /* Elementos de interfaz */
   --accent-bg: #121a2a;
+  --accent-2-bg: #242424;
   --accent-fg: var(--primary-white);
 
   /* Botones genéricos */

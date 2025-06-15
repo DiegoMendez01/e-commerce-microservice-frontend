@@ -110,7 +110,7 @@ export default function Category() {
                     <>
                         <div className='button-container'>
                             <Button
-                                variant="primary"
+                                variant="outline"
                                 size="md"
                                 title={t.create}
                                 onClick={() => navigate('/categories/create')}

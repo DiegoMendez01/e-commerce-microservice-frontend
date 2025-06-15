@@ -1,38 +1,96 @@
 .generic-form-wrapper {
   background-color: var(--primary-light-gray);
   padding: 2rem;
-  border-radius: 1rem;
-  max-width: 500px;
-  margin: 0 auto;
+  border-radius: 0rem 0rem 1rem 1rem;
   color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
 }
 
+.generic-form-banner {
+  background-color: var(--primary-yellow);
+  color: var(--primary-black);
+  padding: 1.5rem 2rem;
+  border-radius: 1rem 1rem 0rem 0rem;
+  text-align: center;
+}
+
+.generic-form-heading {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: var(--font-weight-bold);
+}
+
+.generic-form-title {
+  display: inline-block;
+  background-color: var(--primary-yellow);
+  color: var(--primary-black);
+  font-size: 1.4rem;
+  font-weight: var(--font-weight-bold);
+  padding: 0.8rem 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.generic-form-divider {
+  width: 60px;
+  height: 4px;
+  background-color: var(--primary-yellow);
+  margin: 1rem auto 0 auto;
+  border-radius: 2px;
+}
+
+/* DARK MODE */
 .dark-mode .generic-form-wrapper {
   background-color: var(--primary-black);
   color: var(--primary-white);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05);
+}
+
+.dark-mode .generic-form-title {
+  background-color: var(--primary-yellow);
+  color: var(--primary-black);
+}
+
+.dark-mode .generic-form-heading {
+  color: var(--primary-black);
 }
 
 .generic-form .form-group {
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   display: flex;
   flex-direction: column;
 }
 
-.generic-form .form-group label {
+.generic-form label {
   margin-bottom: 0.5rem;
+  font-weight: 500;
 }
 
 .generic-form input,
 .generic-form textarea,
 .generic-form select {
-  padding: 0.5rem;
+  padding: 0.75rem;
   border: 1px solid var(--primary-gray);
   border-radius: 0.5rem;
   font-size: 1rem;
   background: var(--primary-white);
   color: var(--text-color);
+  transition: border 0.2s, background 0.2s;
 }
 
+.generic-form input:focus,
+.generic-form textarea:focus,
+.generic-form select:focus {
+  border-color: var(--primary-yellow);
+  outline: none;
+}
+
+/* DARK MODE */
+.dark-mode .generic-form-banner {
+  background-color: var(--primary-yellow);
+}
+
+/* DARK MODE campos */
 .dark-mode .generic-form input,
 .dark-mode .generic-form textarea,
 .dark-mode .generic-form select {
@@ -41,6 +99,20 @@
   border: 1px solid var(--primary-light-gray);
 }
 
-.generic-form button {
-  margin-top: 1rem;
+@media (max-width: 480px) {
+  .generic-form-wrapper {
+    padding: 1.5rem;
+  }
+
+  .generic-form-title {
+    font-size: 1.1rem;
+    padding: 0.75rem 1rem;
+  }
+
+  .generic-form input,
+  .generic-form textarea,
+  .generic-form select {
+    font-size: 0.95rem;
+    padding: 0.6rem;
+  }
 }

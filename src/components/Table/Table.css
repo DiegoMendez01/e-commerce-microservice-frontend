@@ -63,7 +63,7 @@ th .th-content {
   border-color: var(--primary-white);
 }
 
-.btn {
+table .btn {
   margin-right: 0.25rem;
   padding: 0.3rem 0.6rem;
   font-size: var(--font-size-small);
