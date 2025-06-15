@@ -82,6 +82,7 @@ const Translations = {
         deleteConfirmation: "¿Estás seguro de que deseas eliminar %type% '%name%'?",
         confirm: "Confirmar",
         cancel: "Cancelar",
+        closeButton: "Cerrar",
         // Toast
         createdSuccessfully: '¡%s %v exitosamente!',
         updatedSuccessfully: '¡%s %v exitosamente!',
@@ -121,6 +122,25 @@ const Translations = {
         cartNavbar: "Carrito",
         cart: "Carrito de compras",
         goCart: "Ir a carrito",
+        stockExceededTitle: "Cantidad superada",
+        stockExceededMessage: "La cantidad solicitada supera el inventario disponible.",
+        emptyCart: "Tu carrito está vacío.",
+        removeButton: "Eliminar",
+        orderSummary: "Resumen del Pedido",
+        totalLabel: "Total:",
+        customerIdPlaceholder: "ID del Cliente",
+        paymentMethodLabel: "Método de Pago",
+        confirmOrder: "Confirmar Orden",
+        processingOrder: "Procesando orden...",
+        orderError: "Error al enviar la orden.",
+        orderSuccess: "¡Orden creada exitosamente!",
+        paymentOptions: {
+            PAYPAL: "PayPal",
+            CREDIT_CARD: "Tarjeta de Crédito",
+            VISA: "Visa",
+            MASTERCARD: "Mastercard",
+            BITCOIN: "Bitcoin",
+        }
     },
     en: {
         goHome: "Go to home page",
@@ -205,6 +225,7 @@ const Translations = {
         deleteConfirmation: "Are you sure you want to delete the %type% '%name%'?",
         confirm: "Confirm",
         cancel: "Cancel",
+        closeButton: "Close",
         // Toast
         deletedSuccessfully: '%s was deleted successfully.',
         createdSuccessfully: '%s created successfully!',
@@ -244,6 +265,25 @@ const Translations = {
         cartNavbar: "Carts",
         cart: "Cart",
         goCart: "Go to cart",
+        stockExceededTitle: "Stock exceeded",
+        stockExceededMessage: "The requested quantity exceeds the available stock.",
+        emptyCart: "Your cart is empty.",
+        removeButton: "Remove",
+        orderSummary: "Order Summary",
+        totalLabel: "Total:",
+        customerIdPlaceholder: "Customer ID",
+        paymentMethodLabel: "Payment Method",
+        confirmOrder: "Confirm Order",
+        processingOrder: "Processing order...",
+        orderError: "Error submitting the order.",
+        orderSuccess: "Order created successfully!",
+        paymentOptions: {
+            PAYPAL: "PayPal",
+            CREDIT_CARD: "Credit Card",
+            VISA: "Visa",
+            MASTERCARD: "Mastercard",
+            BITCOIN: "Bitcoin",
+        }
     },
 };
 

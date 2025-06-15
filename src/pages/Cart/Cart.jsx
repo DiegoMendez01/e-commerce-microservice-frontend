@@ -7,6 +7,7 @@ import "./Cart.css";
 import HeadingH2 from "../../components/HeadingH2/HeadingH2";
 import Translations from "../../Translations/Translations";
 import { useLanguage } from "../../hooks/useLanguage";
+import PaymentMethodSelect from "../../components/PaymentMethodSelect/PaymentMethodSelect";
 
 export default function Cart() {
     const { cart, updateQuantity, removeFromCart, clearCart } = useCart();
@@ -46,7 +47,7 @@ export default function Cart() {
                     <HeadingH2>{t.cart}</HeadingH2>
                 </div>
                 {cart.length === 0 ? (
-                    <p>Tu carrito está vacío.</p>
+                    <p>{t.emptyCart}</p>
                 ) : (
                     cart.map(item => (
                         <div className="cart-item-card" key={item.productId}>
@@ -62,7 +63,7 @@ export default function Cart() {
                                         updateQuantity(item.productId, parseInt(e.target.value))
                                     }
                                 />
-                                <Button onClick={() => removeFromCart(item.productId)}>Eliminar</Button>
+                                <Button onClick={() => removeFromCart(item.productId)}>{t.removeButton}</Button>
                             </div>
                         </div>
                     ))
@@ -70,8 +71,8 @@ export default function Cart() {
             </div>
 
             <div className="cart-summary">
-                <h3>Resumen del Pedido</h3>
-                <p>Total: <strong>${totalAmount.toFixed(2)}</strong></p>
+                <h3>{t.orderSummary}</h3>
+                <p>{t.totalLabel}: <strong>${totalAmount.toFixed(2)}</strong></p>
 
                 <input
                     placeholder="ID del Cliente"
@@ -79,24 +80,18 @@ export default function Cart() {
                     onChange={(e) => setCustomerId(e.target.value)}
                 />
 
-                <select value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)}>
-                    <option value="PAYPAL">PayPal</option>
-                    <option value="CREDIT_CARD">Credit Card</option>
-                    <option value="VISA">Visa</option>
-                    <option value="MASTERCARD">Mastercard</option>
-                    <option value="BITCOIN">Bitcoin</option>
-                </select>
+                <PaymentMethodSelect value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)} />
 
                 <Button
                     onClick={handleOrder}
                     disabled={!customerId || cart.length === 0 || loading}
                 >
-                    Confirmar Orden
+                    {t.confirmOrder}
                 </Button>
 
-                {loading && <p>Procesando orden...</p>}
-                {error && <p className="error">Error al enviar la orden.</p>}
-                {success && <p className="success">¡Orden creada exitosamente!</p>}
+                {loading && <p>{t.processingOrder}</p>}
+                {error && <p className="error">{t.orderError}</p>}
+                {success && <p className="success">{t.orderSuccess}</p>}
             </div>
         </div>
     );

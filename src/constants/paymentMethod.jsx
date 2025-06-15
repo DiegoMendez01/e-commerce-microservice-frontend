@@ -1,0 +1,7 @@
+export const PaymentMethods = {
+  PAYPAL: "PAYPAL",
+  CREDIT_CARD: "CREDIT_CARD",
+  VISA: "VISA",
+  MASTERCARD: "MASTERCARD",
+  BITCOIN: "BITCOIN",
+};

@@ -5,17 +5,35 @@ export function CartProvider({ children }) {
     const [cart, setCart] = useState([]);
 
     const addToCart = (product, quantity = 1) => {
+        let stockExceeded = false;
+
         setCart(prev => {
             const existing = prev.find(p => p.productId === product.id);
+            const currentQty = existing ? existing.quantity : 0;
+            const newQty = currentQty + quantity;
+
+            if (newQty > product.availableQuantity) {
+                stockExceeded = true;
+                return prev;
+            }
+
             if (existing) {
                 return prev.map(p =>
                     p.productId === product.id
-                        ? { ...p, quantity: p.quantity + quantity }
+                        ? { ...p, quantity: newQty }
                         : p
                 );
             }
-            return [...prev, { productId: product.id, name: product.name, quantity }];
+
+            return [...prev, {
+                productId: product.id,
+                name: product.name,
+                quantity,
+                availableQuantity: product.availableQuantity,
+            }];
         });
+
+        return stockExceeded;
     };
 
     const removeFromCart = (productId) => {
