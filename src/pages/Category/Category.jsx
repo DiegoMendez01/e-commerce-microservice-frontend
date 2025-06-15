@@ -14,6 +14,8 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import Toast from '../../components/Toast/Toast';
 import FiltersBar from '../../components/FiltersBar/FiltersBar';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+import { useHttp } from '../../hooks/useHttp';
+import Spinner from '../../components/Spinner/Spinner';
 
 export default function Category() {
     const [categories, setCategories] = useState([]);
@@ -21,6 +23,8 @@ export default function Category() {
     const [errorMessage, setErrorMessage] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState(null);
+
+    const { request, loading, error } = useHttp();
 
     const [filters, setFilters] = useState({});
 
@@ -49,7 +53,7 @@ export default function Category() {
 
         const loadData = async () => {
             try {
-                const data = await fetchCategories();
+                const data = await fetchCategories(request);
                 setCategories(data);
                 setOriginalCategories(data);
             } catch (error) {
@@ -58,7 +62,7 @@ export default function Category() {
         };
 
         loadData();
-    }, [location]);
+    }, [location, request]);
 
     const handleSearch = async (query) => {
         resetPage();
@@ -68,7 +72,7 @@ export default function Category() {
             return;
         }
         try {
-            const results = await searchCategories(query);
+            const results = await searchCategories(query, request);
             setCategories(results);
             setErrorMessage('');
         } catch (error) {
@@ -94,7 +98,7 @@ export default function Category() {
         const deletedName = selectedCategory.name;
 
         try {
-            await deleteCategory(selectedCategory.id);
+            await deleteCategory(selectedCategory.id, request);
 
             setCategories(prev =>
                 prev.filter(cat => cat.id !== selectedCategory.id)
@@ -165,36 +169,47 @@ export default function Category() {
                 <div>
                     <HeadingH2>{t.categories}</HeadingH2>
                 </div>
-                {errorMessage ? (
-                    <div className="error-message">{errorMessage}</div>
-                ) : categories.length === 0 ? (
-                    <div className="error-message">{t.noCategory}</div>
-                ) : (
-                    <>
-                        <div className='button-container'>
-                            <Button
-                                variant="outline"
-                                size="md"
-                                title={t.create}
-                                onClick={() => navigate('/categories/create')}
-                            >
-                                {t.create}
-                            </Button>
-                        </div>
-                        <FiltersBar
-                            columns={columns}
-                            filters={filters}
-                            onFilterChange={handleFilterChange}
-                            translations={t}
-                        />
-                        <Table columns={columns} data={currentItems} actions={actions} />
-                        <Pagination
-                            totalItems={filteredCategories.length}
-                            itemsPerPage={itemsPerPage}
-                            currentPage={currentPage}
-                            onPageChange={setCurrentPage}
-                        />
-                    </>
+
+                {loading && <Spinner />}
+
+                {!loading && error && (
+                    <div className="error-message">
+                        {t.errorLoadingCategories || 'Error loading categories'}
+                    </div>
+                )}
+
+                {!loading && !error && (
+                    errorMessage ? (
+                        <div className="error-message">{errorMessage}</div>
+                    ) : categories.length === 0 ? (
+                        <div className="error-message">{t.noCategory}</div>
+                    ) : (
+                        <>
+                            <div className='button-container'>
+                                <Button
+                                    variant="outline"
+                                    size="md"
+                                    title={t.create}
+                                    onClick={() => navigate('/categories/create')}
+                                >
+                                    {t.create}
+                                </Button>
+                            </div>
+                            <FiltersBar
+                                columns={columns}
+                                filters={filters}
+                                onFilterChange={handleFilterChange}
+                                translations={t}
+                            />
+                            <Table columns={columns} data={currentItems} actions={actions} />
+                            <Pagination
+                                totalItems={filteredCategories.length}
+                                itemsPerPage={itemsPerPage}
+                                currentPage={currentPage}
+                                onPageChange={setCurrentPage}
+                            />
+                        </>
+                    )
                 )}
             </div>
 

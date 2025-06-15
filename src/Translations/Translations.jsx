@@ -56,10 +56,12 @@ const Translations = {
         noCategory: "No hay categorías disponibles.",
         category: "Categoría",
         categoryName: "Nombre de la categoría",
+        errorLoadingCategories: "Error al cargar las categorías",
         // Products
         availableQuantity: "Cantidad disponible",
         price: "Precio",
         product: "Producto",
+        errorLoadingProducts: "Error al cargar los productos",
         // Table
         name: "Nombre",
         description: "Descripción",
@@ -147,10 +149,12 @@ const Translations = {
         noCategory: "No categories available.",
         category: "Category",
         categoryName: "Category name",
+        errorLoadingCategories: "Error loading categories",
         // Products
         availableQuantity: "Available quantity",
         price: "Price",
         product: "Product",
+        errorLoadingProducts: "Error loading products",
         // Table
         name: "Name",
         description: "Description",

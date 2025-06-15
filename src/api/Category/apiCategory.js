@@ -1,33 +1,31 @@
-import { apiFetch } from "../apiClient";
-
-export function fetchCategories() {
-  return apiFetch("/categories");
+export function fetchCategories(request) {
+  return request("/categories");
 }
 
-export function fetchCategoryById(id) {
-  return apiFetch(`/categories/${id}`);
+export function fetchCategoryById(id, request) {
+  return request(`/categories/${id}`);
 }
 
-export function searchCategories(name) {
-  return apiFetch(`/categories/search?name=${encodeURIComponent(name)}`);
+export function searchCategories(name, request) {
+  return request(`/categories/search?name=${encodeURIComponent(name)}`);
 }
 
-export function createCategory(categoryData) {
-  return apiFetch("/categories", {
+export function createCategory(categoryData, request) {
+  return request("/categories", {
     method: "POST",
     body: categoryData,
   });
 }
 
-export function updateCategory(id, categoryData) {
-  return apiFetch(`/categories/${id}`, {
+export function updateCategory(id, categoryData, request) {
+  return request(`/categories/${id}`, {
     method: "PUT",
     body: categoryData,
   });
 }
 
-export function deleteCategory(id) {
-  return apiFetch(`/categories/${id}`, {
+export function deleteCategory(id, request) {
+  return request(`/categories/${id}`, {
     method: "DELETE",
   });
 }

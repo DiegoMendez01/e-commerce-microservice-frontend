@@ -14,6 +14,8 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import Toast from '../../components/Toast/Toast';
 import FiltersBar from '../../components/FiltersBar/FiltersBar';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+import { useHttp } from '../../hooks/useHttp';
+import Spinner from '../../components/Spinner/Spinner';
 
 export default function Product() {
     const [products, setProducts] = useState([]);
@@ -21,6 +23,8 @@ export default function Product() {
     const [errorMessage, setErrorMessage] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState(null);
+
+    const { request, loading, error } = useHttp();
 
     const [filters, setFilters] = useState({});
 
@@ -49,7 +53,7 @@ export default function Product() {
 
         const loadData = async () => {
             try {
-                const data = await fetchProducts();
+                const data = await fetchProducts(request);
                 setProducts(data);
                 setOriginalProducts(data);
             } catch (error) {
@@ -58,7 +62,7 @@ export default function Product() {
         };
 
         loadData();
-    }, [location]);
+    }, [location, request]);
 
     const handleSearch = async (query) => {
         resetPage();
@@ -68,7 +72,7 @@ export default function Product() {
             return;
         }
         try {
-            const results = await searchProducts(query);
+            const results = await searchProducts(query, request);
             setProducts(results);
             setErrorMessage('');
         } catch (error) {
@@ -94,7 +98,7 @@ export default function Product() {
         const deletedName = selectedProduct.name;
 
         try {
-            await deleteProduct(selectedProduct.id);
+            await deleteProduct(selectedProduct.id, request);
 
             setProducts(prev =>
                 prev.filter(cat => cat.id !== selectedProduct.id)
@@ -167,36 +171,47 @@ export default function Product() {
                 <div>
                     <HeadingH2>{t.products}</HeadingH2>
                 </div>
-                {errorMessage ? (
-                    <div className="error-message">{errorMessage}</div>
-                ) : products.length === 0 ? (
-                    <div className="error-message">{t.noProduct}</div>
-                ) : (
-                    <>
-                        <div className='button-container'>
-                            <Button
-                                variant="outline"
-                                size="md"
-                                title={t.create}
-                                onClick={() => navigate('/products/create')}
-                            >
-                                {t.create}
-                            </Button>
-                        </div>
-                        <FiltersBar
-                            columns={columns}
-                            filters={filters}
-                            onFilterChange={handleFilterChange}
-                            translations={t}
-                        />
-                        <Table columns={columns} data={currentItems} actions={actions} />
-                        <Pagination
-                            totalItems={filteredProducts.length}
-                            itemsPerPage={itemsPerPage}
-                            currentPage={currentPage}
-                            onPageChange={setCurrentPage}
-                        />
-                    </>
+
+                {loading && <Spinner />}
+
+                {!loading && error && (
+                    <div className="error-message">
+                        {t.errorLoadingProducts || 'Error loading products'}
+                    </div>
+                )}
+
+                {!loading && !error && (
+                    errorMessage ? (
+                        <div className="error-message">{errorMessage}</div>
+                    ) : products.length === 0 ? (
+                        <div className="error-message">{t.noProduct}</div>
+                    ) : (
+                        <>
+                            <div className='button-container'>
+                                <Button
+                                    variant="outline"
+                                    size="md"
+                                    title={t.create}
+                                    onClick={() => navigate('/products/create')}
+                                >
+                                    {t.create}
+                                </Button>
+                            </div>
+                            <FiltersBar
+                                columns={columns}
+                                filters={filters}
+                                onFilterChange={handleFilterChange}
+                                translations={t}
+                            />
+                            <Table columns={columns} data={currentItems} actions={actions} />
+                            <Pagination
+                                totalItems={filteredProducts.length}
+                                itemsPerPage={itemsPerPage}
+                                currentPage={currentPage}
+                                onPageChange={setCurrentPage}
+                            />
+                        </>
+                    )
                 )}
             </div>
 
@@ -211,6 +226,7 @@ export default function Product() {
             >
                 <p>{t.deleteConfirmation.replace('%s', selectedProduct?.name)}</p>
             </Modal>
+
             {toast && (
                 <Toast
                     message={toast.message}
