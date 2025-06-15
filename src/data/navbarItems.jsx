@@ -10,6 +10,11 @@ const getNavbarItems = (t) => [
     title: t.goProducts,
     to: '/products'
   },
+  {
+    label: t.customers,
+    title: t.goCustomers,
+    to: '/customers'
+  },
 ];
 
 export default getNavbarItems;

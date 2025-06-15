@@ -86,6 +86,9 @@ const Translations = {
         enterAvailableQuantity: "Ingrese la cantidad disponible",
         formProduct: "Formulario de producto",
         formCategory: "Formulario de categoría",
+        // Customers
+        goCustomers: "Ir a clientes",
+        customers: "Clientes",
     },
     en: {
         goHome: "Go to home page",
@@ -174,6 +177,9 @@ const Translations = {
         enterAvailableQuantity: "Enter available quantity",
         formProduct: "Product form",
         formCategory: "Category form",
+        // Customers
+        goCustomers: "Go to customers",
+        customers: "Customers",
     },
 };
 
