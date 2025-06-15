@@ -9,6 +9,7 @@ import {
 import { useLanguage } from '../../hooks/useLanguage';
 import Translations from '../../Translations/Translations';
 import Toast from '../../components/Toast/Toast';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 export default function CategoryFormPage() {
     const { id } = useParams();
@@ -81,6 +82,13 @@ export default function CategoryFormPage() {
 
     return (
         <>
+            <Breadcrumb
+                paths={[
+                    { label: t.home, to: '/' },
+                    { label: t.categories, to: '/categories' },
+                    { label: t.formCategory }
+                ]}
+            />
             <GenericForm
                 title={id ? t.editCategory : t.createCategory}
                 fields={fields}

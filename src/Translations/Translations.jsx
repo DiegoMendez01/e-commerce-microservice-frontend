@@ -2,6 +2,7 @@ const Translations = {
     es: {
         goHome: "Ir a la página de inicio",
         goInicio: "Inicio",
+        home: "Inicio",
         products: "Productos",
         goProducts: "Ir a productos",
         categories: "Categorías",
@@ -62,11 +63,12 @@ const Translations = {
         // Table
         name: "Nombre",
         description: "Descripción",
-        view: 'Ver',
-        edit: 'Editar',
-        delete: 'Eliminar',
-        actions: 'Acciones',
-        filter: 'Filtrar',
+        view: "Ver",
+        edit: "Editar",
+        delete: "Eliminar",
+        actions: "Acciones",
+        filter: "Filtrar",
+        clearFilters: 'Limpiar',
         // Modal
         confirmDelete: "Confirmar eliminación",
         deleteConfirmation: "¿Estás seguro de que deseas eliminar la categoría '%s'?",
@@ -82,10 +84,13 @@ const Translations = {
         enterName: "Ingrese el nombre",
         enterDescription: "Ingrese la descripción",
         enterAvailableQuantity: "Ingrese la cantidad disponible",
+        formProduct: "Formulario de producto",
+        formCategory: "Formulario de categoría",
     },
     en: {
         goHome: "Go to home page",
         goInicio: "Home",
+        home: "Home",
         products: "Products",
         categories: "Categories",
         goProducts: "Go to products",
@@ -146,11 +151,12 @@ const Translations = {
         // Table
         name: "Name",
         description: "Description",
-        view: 'View',
-        edit: 'Edit',
-        delete: 'Delete',
-        actions: 'Actions',
-        filter: 'Filter',
+        view: "View",
+        edit: "Edit",
+        delete: "Delete",
+        actions: "Actions",
+        filter: "Filter",
+        clearFilters: "Clear",
         // Modal
         confirmDelete: "Confirm deletion",
         deleteConfirmation: "Are you sure you want to delete the category '%s'?",
@@ -166,6 +172,8 @@ const Translations = {
         enterName: "Enter name",
         enterDescription: "Enter description",
         enterAvailableQuantity: "Enter available quantity",
+        formProduct: "Product form",
+        formCategory: "Category form",
     },
 };
 

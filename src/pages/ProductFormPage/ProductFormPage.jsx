@@ -10,6 +10,7 @@ import { useLanguage } from '../../hooks/useLanguage';
 import { fetchCategories } from '../../api/Category/apiCategory';
 import Translations from '../../Translations/Translations';
 import Toast from '../../components/Toast/Toast';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 export default function ProductFormPage() {
     const { id } = useParams();
@@ -111,6 +112,13 @@ export default function ProductFormPage() {
 
     return (
         <>
+            <Breadcrumb
+                paths={[
+                    { label: t.home, to: '/' },
+                    { label: t.products, to: '/products' },
+                    { label: t.formProduct }
+                ]}
+            />
             <GenericForm
                 title={id ? t.editCategory : t.createCategory}
                 fields={fields}

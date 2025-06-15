@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import getSitemapItems from '../../data/navbarItems';
 import { useState } from 'react';
 import Button from '../../components/Button/Button';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 export default function Sitemap() {
   const { language } = useLanguage();
@@ -95,6 +96,12 @@ export default function Sitemap() {
 
   return (
     <div className="sitemap">
+      <Breadcrumb
+        paths={[
+          { label: t.home, to: '/' },
+          { label: t.sitemap }
+        ]}
+      />
       <h1>{t.sitemap || 'Mapa del sitio'}</h1>
       <Button onClick={downloadSitemap} variant="outline" size="md" title={t.downloadSitemap}>
         {t.downloadSitemap}

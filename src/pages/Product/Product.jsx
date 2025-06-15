@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import './Product.css';
 import { fetchProducts, searchProducts, deleteProduct } from '../../api/Product/apiProduct';
 import { useLanguage } from '../../hooks/useLanguage';
@@ -12,6 +12,8 @@ import Modal from '../../components/Modal/Modal';
 import Button from '../../components/Button/Button';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Toast from '../../components/Toast/Toast';
+import FiltersBar from '../../components/FiltersBar/FiltersBar';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 export default function Product() {
     const [products, setProducts] = useState([]);
@@ -19,6 +21,8 @@ export default function Product() {
     const [errorMessage, setErrorMessage] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState(null);
+
+    const [filters, setFilters] = useState({});
 
     const location = useLocation();
     const [toast, setToast] = useState(location.state?.toast || null);
@@ -106,6 +110,25 @@ export default function Product() {
         }
     };
 
+    const handleFilterChange = (accessor, value) => {
+        setFilters(prev => ({
+            ...prev,
+            [accessor]: value
+        }));
+        resetPage();
+    };
+
+    const filteredProducts = useMemo(() => {
+        return products.filter(product => {
+            return Object.entries(filters).every(([key, filterValue]) => {
+                if (!filterValue) return true;
+                const productValue = product[key];
+                if (productValue === null || productValue === undefined) return false;
+                return String(productValue).toLowerCase().includes(filterValue.toLowerCase());
+            });
+        });
+    }, [products, filters]);
+
     const columns = [
         { label: t.name, accessor: 'name', filter: true, sortable: true },
         { label: t.availableQuantity, accessor: 'availableQuantity', filter: true },
@@ -129,12 +152,18 @@ export default function Product() {
 
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = products.slice(indexOfFirstItem, indexOfLastItem);
+    const currentItems = filteredProducts.slice(indexOfFirstItem, indexOfLastItem);
 
     return (
         <>
             <div className="page-product">
                 <SearchBar onSearch={handleSearch} />
+                <Breadcrumb
+                    paths={[
+                        { label: t.home, to: '/' },
+                        { label: t.products }
+                    ]}
+                />
                 <div>
                     <HeadingH2>{t.products}</HeadingH2>
                 </div>
@@ -154,9 +183,15 @@ export default function Product() {
                                 {t.create}
                             </Button>
                         </div>
+                        <FiltersBar
+                            columns={columns}
+                            filters={filters}
+                            onFilterChange={handleFilterChange}
+                            translations={t}
+                        />
                         <Table columns={columns} data={currentItems} actions={actions} />
                         <Pagination
-                            totalItems={products.length}
+                            totalItems={filteredProducts.length}
                             itemsPerPage={itemsPerPage}
                             currentPage={currentPage}
                             onPageChange={setCurrentPage}

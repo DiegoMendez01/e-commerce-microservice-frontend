@@ -4,7 +4,6 @@ import { useLanguage } from '../../hooks/useLanguage';
 import Translations from '../../Translations/Translations';
 
 export default function Table({ columns = [], data = [], actions = [] }) {
-    const [filters, setFilters] = useState({});
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
     const { language } = useLanguage();
     const t = Translations[language];
@@ -16,10 +15,6 @@ export default function Table({ columns = [], data = [], actions = [] }) {
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
-
-    const handleFilterChange = (e, accessor) => {
-        setFilters(prev => ({ ...prev, [accessor]: e.target.value }));
-    };
 
     const handleSort = (accessor) => {
         const col = columns.find(c => c.accessor === accessor);
@@ -36,76 +31,44 @@ export default function Table({ columns = [], data = [], actions = [] }) {
         });
     };
 
-    const filteredData = useMemo(() => {
-        let filtered = data.filter(row =>
-            columns.every(col => {
-                const filter = filters[col.accessor];
-                if (!filter) return true;
-                const value = String(row[col.accessor] ?? '').toLowerCase();
-                return value.includes(filter.toLowerCase());
-            })
-        );
+    const sortedData = useMemo(() => {
+        if (!sortConfig.key) return data;
 
-        if (sortConfig.key) {
-            filtered = [...filtered].sort((a, b) => {
-                const aValue = a[sortConfig.key];
-                const bValue = b[sortConfig.key];
+        return [...data].sort((a, b) => {
+            const aValue = a[sortConfig.key];
+            const bValue = b[sortConfig.key];
 
-                if (aValue === null || aValue === undefined) return 1;
-                if (bValue === null || bValue === undefined) return -1;
+            if (aValue === null || aValue === undefined) return 1;
+            if (bValue === null || bValue === undefined) return -1;
 
-                const aStr = String(aValue).toLowerCase();
-                const bStr = String(bValue).toLowerCase();
+            const aStr = String(aValue).toLowerCase();
+            const bStr = String(bValue).toLowerCase();
 
-                if (aStr < bStr) return sortConfig.direction === 'asc' ? -1 : 1;
-                if (aStr > bStr) return sortConfig.direction === 'asc' ? 1 : -1;
-                return 0;
-            });
-        }
-
-        return filtered;
-    }, [filters, data, columns, sortConfig]);
+            if (aStr < bStr) return sortConfig.direction === 'asc' ? -1 : 1;
+            if (aStr > bStr) return sortConfig.direction === 'asc' ? 1 : -1;
+            return 0;
+        });
+    }, [data, sortConfig]);
 
     return (
         <div className="table-container">
-            {isMobile && (
-                <div className="mobile-filters">
-                    {columns.map(col => (
-                        col.filter && (
-                            <div key={col.accessor} className="mobile-filter-group">
-                                <label className="mobile-filter-label">
-                                    {col.label}
-                                </label>
-                                <input
-                                    type="text"
-                                    className="filter-input"
-                                    placeholder={`${t.filter} ${col.label}`}
-                                    value={filters[col.accessor] || ''}
-                                    onChange={e => handleFilterChange(e, col.accessor)}
-                                />
-                            </div>
-                        )
-                    ))}
-                </div>
-            )}
-
             {!isMobile ? (
                 <table className="table">
                     <thead>
                         <tr>
                             {columns.map(col => (
-                                <th key={col.accessor} style={{ cursor: col.sortable ? 'default' : 'default' }}>
+                                <th key={col.accessor} style={{ cursor: col.sortable ? 'pointer' : 'default' }}>
                                     <div className="th-content">
                                         <span className="th-label">
                                             {col.label}
                                             {col.sortable && (
                                                 <i
                                                     className={`fas ${sortConfig.key === col.accessor
-                                                            ? sortConfig.direction === 'asc'
-                                                                ? 'fa-sort-up'
-                                                                : 'fa-sort-down'
-                                                            : 'fa-sort'
-                                                        } sort-icon`}
+                                                        ? sortConfig.direction === 'asc'
+                                                            ? 'fa-sort-up'
+                                                            : 'fa-sort-down'
+                                                        : 'fa-sort'
+                                                    } sort-icon`}
                                                     onClick={() => handleSort(col.accessor)}
                                                     style={{ cursor: 'pointer' }}
                                                     role="button"
@@ -120,16 +83,6 @@ export default function Table({ columns = [], data = [], actions = [] }) {
                                                 />
                                             )}
                                         </span>
-                                        {col.filter && (
-                                            <input
-                                                type="text"
-                                                className="filter-input"
-                                                placeholder={`${t.filter} ${col.label}`}
-                                                value={filters[col.accessor] || ''}
-                                                onChange={e => handleFilterChange(e, col.accessor)}
-                                                onClick={e => e.stopPropagation()}
-                                            />
-                                        )}
                                     </div>
                                 </th>
                             ))}
@@ -141,7 +94,7 @@ export default function Table({ columns = [], data = [], actions = [] }) {
                         </tr>
                     </thead>
                     <tbody>
-                        {filteredData.map((row, rowIndex) => (
+                        {sortedData.map((row, rowIndex) => (
                             <tr key={rowIndex}>
                                 {columns.map(col => (
                                     <td key={col.accessor}>
@@ -168,7 +121,7 @@ export default function Table({ columns = [], data = [], actions = [] }) {
                 </table>
             ) : (
                 <div className="mobile-cards">
-                    {filteredData.map((row, rowIndex) => (
+                    {sortedData.map((row, rowIndex) => (
                         <div key={`card-${rowIndex}`} className="card-row">
                             {columns.map(col => (
                                 <div className="card-field" key={col.accessor}>
