@@ -8,6 +8,7 @@ import HeadingH2 from "../../components/HeadingH2/HeadingH2";
 import Translations from "../../Translations/Translations";
 import { useLanguage } from "../../hooks/useLanguage";
 import PaymentMethodSelect from "../../components/PaymentMethodSelect/PaymentMethodSelect";
+import Modal from "../../components/Modal/Modal";
 
 export default function Cart() {
     const { cart, updateQuantity, removeFromCart, clearCart } = useCart();
@@ -16,12 +17,22 @@ export default function Cart() {
     const [paymentMethod, setPaymentMethod] = useState("PAYPAL");
     const [success, setSuccess] = useState(false);
 
+    const [modalOpen, setModalOpen] = useState(false);
+    const [modalMessage, setModalMessage] = useState("");
+
     const { language } = useLanguage();
     const t = Translations[language];
 
     const totalAmount = cart.reduce((acc, item) => acc + item.quantity * 10, 0);
 
     const handleOrder = async () => {
+        const stockExceeded = cart.some(item => item.quantity > item.availableQuantity);
+        if (stockExceeded) {
+            setModalMessage(t.stockExceededMessage);
+            setModalOpen(true);
+            return;
+        }
+
         const orderData = {
             reference: `ORD-${Date.now()}`,
             totalAmount,
@@ -93,6 +104,14 @@ export default function Cart() {
                 {error && <p className="error">{t.orderError}</p>}
                 {success && <p className="success">{t.orderSuccess}</p>}
             </div>
+            <Modal
+                isOpen={modalOpen}
+                title={t.stockExceededTitle}
+                onClose={() => setModalOpen(false)}
+                cancelText={t.closeButton}
+            >
+                <p>{modalMessage}</p>
+            </Modal>
         </div>
     );
 }

@@ -1,8 +1,16 @@
 import { useState } from "react";
 import { CartContext } from "../contexts/CartContext";
+import Modal from "../components/Modal/Modal";
+import Translations from "../Translations/Translations";
+import { useLanguage } from "../hooks/useLanguage";
 
 export function CartProvider({ children }) {
     const [cart, setCart] = useState([]);
+    const [modalOpen, setModalOpen] = useState(false);
+    const [modalMessage, setModalMessage] = useState("");
+
+    const { language } = useLanguage();
+    const t = Translations[language];
 
     const addToCart = (product, quantity = 1) => {
         let stockExceeded = false;
@@ -42,17 +50,35 @@ export function CartProvider({ children }) {
 
     const updateQuantity = (productId, quantity) => {
         setCart(prev =>
-            prev.map(item =>
-                item.productId === productId ? { ...item, quantity } : item
-            )
+            prev.map(item => {
+                if (item.productId === productId) {
+                    if (quantity > item.availableQuantity) {
+                        setModalMessage(t.stockExceededMessage);
+                        setModalOpen(true);
+                        return item;
+                    }
+                    return { ...item, quantity };
+                }
+                return item;
+            })
         );
     };
 
     const clearCart = () => setCart([]);
 
     return (
-        <CartContext.Provider value={{ cart, addToCart, removeFromCart, updateQuantity, clearCart }}>
-            {children}
-        </CartContext.Provider>
+        <>
+            <CartContext.Provider value={{ cart, addToCart, removeFromCart, updateQuantity, clearCart }}>
+                {children}
+            </CartContext.Provider>
+            <Modal
+                isOpen={modalOpen}
+                title={t.stockExceededTitle}
+                onClose={() => setModalOpen(false)}
+                cancelText={t.closeButton}
+            >
+                <p>{modalMessage}</p>
+            </Modal>
+        </>
     );
 }
