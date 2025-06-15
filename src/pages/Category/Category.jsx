@@ -107,7 +107,7 @@ export default function Category() {
     };
 
     const columns = [
-        { label: t.name, accessor: 'name', filter: true },
+        { label: t.name, accessor: 'name', filter: true, sortable: true },
         { label: t.description, accessor: 'description', filter: true },
     ];
 

@@ -9,6 +9,8 @@ export default function Table({ columns = [], data = [], actions = [] }) {
     const { language } = useLanguage();
     const t = Translations[language];
 
+    const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
+
     useEffect(() => {
         const handleResize = () => setIsMobile(window.innerWidth <= 768);
         window.addEventListener('resize', handleResize);
@@ -19,8 +21,23 @@ export default function Table({ columns = [], data = [], actions = [] }) {
         setFilters(prev => ({ ...prev, [accessor]: e.target.value }));
     };
 
+    const handleSort = (accessor) => {
+        const col = columns.find(c => c.accessor === accessor);
+        if (!col?.sortable) return;
+
+        setSortConfig((prev) => {
+            if (prev.key === accessor) {
+                return {
+                    key: accessor,
+                    direction: prev.direction === 'asc' ? 'desc' : 'asc'
+                };
+            }
+            return { key: accessor, direction: 'asc' };
+        });
+    };
+
     const filteredData = useMemo(() => {
-        return data.filter(row =>
+        let filtered = data.filter(row =>
             columns.every(col => {
                 const filter = filters[col.accessor];
                 if (!filter) return true;
@@ -28,7 +45,26 @@ export default function Table({ columns = [], data = [], actions = [] }) {
                 return value.includes(filter.toLowerCase());
             })
         );
-    }, [filters, data, columns]);
+
+        if (sortConfig.key) {
+            filtered = [...filtered].sort((a, b) => {
+                const aValue = a[sortConfig.key];
+                const bValue = b[sortConfig.key];
+
+                if (aValue === null || aValue === undefined) return 1;
+                if (bValue === null || bValue === undefined) return -1;
+
+                const aStr = String(aValue).toLowerCase();
+                const bStr = String(bValue).toLowerCase();
+
+                if (aStr < bStr) return sortConfig.direction === 'asc' ? -1 : 1;
+                if (aStr > bStr) return sortConfig.direction === 'asc' ? 1 : -1;
+                return 0;
+            });
+        }
+
+        return filtered;
+    }, [filters, data, columns, sortConfig]);
 
     return (
         <div className="table-container">
@@ -58,9 +94,32 @@ export default function Table({ columns = [], data = [], actions = [] }) {
                     <thead>
                         <tr>
                             {columns.map(col => (
-                                <th key={col.accessor}>
+                                <th key={col.accessor} style={{ cursor: col.sortable ? 'default' : 'default' }}>
                                     <div className="th-content">
-                                        {col.label}
+                                        <span className="th-label">
+                                            {col.label}
+                                            {col.sortable && (
+                                                <i
+                                                    className={`fas ${sortConfig.key === col.accessor
+                                                            ? sortConfig.direction === 'asc'
+                                                                ? 'fa-sort-up'
+                                                                : 'fa-sort-down'
+                                                            : 'fa-sort'
+                                                        } sort-icon`}
+                                                    onClick={() => handleSort(col.accessor)}
+                                                    style={{ cursor: 'pointer' }}
+                                                    role="button"
+                                                    tabIndex={0}
+                                                    onKeyDown={(e) => {
+                                                        if (e.key === 'Enter' || e.key === ' ') {
+                                                            e.preventDefault();
+                                                            handleSort(col.accessor);
+                                                        }
+                                                    }}
+                                                    aria-label={`Sort by ${col.label}`}
+                                                />
+                                            )}
+                                        </span>
                                         {col.filter && (
                                             <input
                                                 type="text"
@@ -68,6 +127,7 @@ export default function Table({ columns = [], data = [], actions = [] }) {
                                                 placeholder={`${t.filter} ${col.label}`}
                                                 value={filters[col.accessor] || ''}
                                                 onChange={e => handleFilterChange(e, col.accessor)}
+                                                onClick={e => e.stopPropagation()}
                                             />
                                         )}
                                     </div>
