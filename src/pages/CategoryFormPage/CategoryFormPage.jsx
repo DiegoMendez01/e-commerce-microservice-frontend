@@ -10,6 +10,8 @@ import { useLanguage } from '../../hooks/useLanguage';
 import Translations from '../../Translations/Translations';
 import Toast from '../../components/Toast/Toast';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+import { useHttp } from '../../hooks/useHttp';
+import Spinner from '../../components/Spinner/Spinner';
 
 export default function CategoryFormPage() {
     const { id } = useParams();
@@ -17,27 +19,29 @@ export default function CategoryFormPage() {
     const { language } = useLanguage();
     const t = Translations[language];
 
+    const { request, loading, error } = useHttp();
+
     const [initialData, setInitialData] = useState({});
     const [toast, setToast] = useState(null);
 
     useEffect(() => {
         if (id) {
-            fetchCategoryById(id).then(setInitialData);
+            fetchCategoryById(id, request).then(setInitialData);
         }
-    }, [id]);
+    }, [id, request]);
 
     const entityName = t.category || 'Category';
 
     const handleSubmit = async (formData) => {
         try {
             if (id) {
-                await updateCategory(id, formData);
+                await updateCategory(id, formData, request);
                 setToast({
                     message: t.updatedSuccessfully.replace('%s', entityName),
                     type: 'success'
                 });
             } else {
-                await createCategory(formData);
+                await createCategory(formData, request);
                 setToast({
                     message: t.createdSuccessfully.replace('%s', entityName),
                     type: 'success'
@@ -89,13 +93,23 @@ export default function CategoryFormPage() {
                     { label: t.formCategory }
                 ]}
             />
-            <GenericForm
-                title={id ? t.editCategory : t.createCategory}
-                fields={fields}
-                initialData={initialData}
-                onSubmit={handleSubmit}
-                submitLabel={id ? t.saveChanges : t.create}
-            />
+            {loading && <Spinner />}
+
+            {!loading && error && (
+                <div className="error-message">
+                    {t.errorLoadingCategories || 'Error loading categories'}
+                </div>
+            )}
+
+            {!loading && !error && (
+                <GenericForm
+                    title={id ? t.editCategory : t.createCategory}
+                    fields={fields}
+                    initialData={initialData}
+                    onSubmit={handleSubmit}
+                    submitLabel={id ? t.saveChanges : t.create}
+                />
+            )}
             {toast && (
                 <Toast
                     message={toast.message}

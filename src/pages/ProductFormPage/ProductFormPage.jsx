@@ -11,6 +11,8 @@ import { fetchCategories } from '../../api/Category/apiCategory';
 import Translations from '../../Translations/Translations';
 import Toast from '../../components/Toast/Toast';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+import { useHttp } from '../../hooks/useHttp';
+import Spinner from '../../components/Spinner/Spinner';
 
 export default function ProductFormPage() {
     const { id } = useParams();
@@ -18,32 +20,34 @@ export default function ProductFormPage() {
     const { language } = useLanguage();
     const t = Translations[language];
 
+    const { request, loading, error } = useHttp();
+
     const [initialData, setInitialData] = useState({});
     const [categories, setCategories] = useState([]);
     const [toast, setToast] = useState(null);
 
     useEffect(() => {
         if (id) {
-            fetchProductById(id).then(setInitialData);
+            fetchProductById(id, request).then(setInitialData);
         }
 
-        fetchCategories()
+        fetchCategories(request)
             .then(setCategories)
             .catch((error) => console.error('Error loading categories:', error));
-    }, [id]);
+    }, [id, request]);
 
     const entityName = t.product || 'Product';
 
     const handleSubmit = async (formData) => {
         try {
             if (id) {
-                await updateProduct(id, formData);
+                await updateProduct(id, formData, request);
                 setToast({
                     message: t.updatedSuccessfully.replace('%s', entityName),
                     type: 'success'
                 });
             } else {
-                await createProduct(formData);
+                await createProduct(formData, request);
                 setToast({
                     message: t.createdSuccessfully.replace('%s', entityName),
                     type: 'success'
@@ -119,13 +123,23 @@ export default function ProductFormPage() {
                     { label: t.formProduct }
                 ]}
             />
-            <GenericForm
-                title={id ? t.editCategory : t.createCategory}
-                fields={fields}
-                initialData={initialData}
-                onSubmit={handleSubmit}
-                submitLabel={id ? t.saveChanges : t.create}
-            />
+            {loading && <Spinner />}
+
+            {!loading && error && (
+                <div className="error-message">
+                    {t.errorLoadingProducts || 'Error loading products'}
+                </div>
+            )}
+
+            {!loading && !error && (
+                <GenericForm
+                    title={id ? t.editCategory : t.createCategory}
+                    fields={fields}
+                    initialData={initialData}
+                    onSubmit={handleSubmit}
+                    submitLabel={id ? t.saveChanges : t.create}
+                />
+            )}
             {toast && (
                 <Toast
                     message={toast.message}

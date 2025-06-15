@@ -14,6 +14,7 @@ import CategoryFormPage from './pages/CategoryFormPage/CategoryFormPage';
 import Product from './pages/Product/Product';
 import ProductFormPage from './pages/ProductFormPage/ProductFormPage';
 import Customer from './pages/Customer/Customer';
+import CustomerFormPage from './pages/CustomerFormPage/CustomerFormPage';
 
 function App() {
   return (
@@ -33,6 +34,8 @@ function App() {
               <Route path="/products/edit/:id" element={<ProductFormPage />} />
               <Route path="/products/create" element={<ProductFormPage />} />
               <Route path="/customers" element={<Customer />} />
+              <Route path="/customers/edit/:id" element={<CustomerFormPage />} />
+              <Route path="/customers/create" element={<CustomerFormPage />} />
             </Routes>
           </main>
           <AccessibilityMenu />
