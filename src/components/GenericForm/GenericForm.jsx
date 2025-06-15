@@ -3,6 +3,7 @@ import './GenericForm.css';
 import Button from '../Button/Button';
 import { useLanguage } from '../../hooks/useLanguage';
 import Translations from '../../Translations/Translations';
+import { flattenObject, unflattenObject  } from '../../utils/object';
 
 export default function GenericForm({
     title,
@@ -17,9 +18,10 @@ export default function GenericForm({
     const t = Translations[language];
 
     useEffect(() => {
+        const flatInitialData = flattenObject(initialData);
         const defaults = {};
         fields.forEach(field => {
-            defaults[field.name] = initialData[field.name] ?? field.defaultValue ?? '';
+            defaults[field.name] = flatInitialData[field.name] ?? field.defaultValue ?? '';
         });
         setFormData(defaults);
     }, [fields, initialData]);
@@ -34,7 +36,8 @@ export default function GenericForm({
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        onSubmit(formData);
+        const nestedData = unflattenObject(formData);
+        onSubmit(nestedData);
     };
 
     return (

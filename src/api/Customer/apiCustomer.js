@@ -17,8 +17,8 @@ export function createCustomer(customerData, request) {
   });
 }
 
-export function updateCustomer(id, customerData, request) {
-  return request(`/customers/${id}`, {
+export function updateCustomer(customerData, request) {
+  return request(`/customers`, {
     method: "PUT",
     body: customerData,
   });

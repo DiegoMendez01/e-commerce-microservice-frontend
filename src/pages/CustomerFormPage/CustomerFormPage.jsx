@@ -61,7 +61,8 @@ export default function CustomerFormPage() {
             let verb, message;
 
             if (id) {
-                await updateCustomer(id, normalizedData, request);
+                const normalizedDataWithId = { ...normalizedData, id };
+                await updateCustomer(normalizedDataWithId, request);
                 verb = getGenderedVerb('actualizad');
                 message = getMessage(t.updatedSuccessfully, verb);
             } else {
