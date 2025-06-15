@@ -1,14 +1,12 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Table.css';
 import { useLanguage } from '../../hooks/useLanguage';
 import Translations from '../../Translations/Translations';
 
-export default function Table({ columns = [], data = [], actions = [] }) {
+export default function Table({ columns = [], data = [], actions = [], onSort, sortConfig = {} }) {
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
     const { language } = useLanguage();
     const t = Translations[language];
-
-    const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
 
     useEffect(() => {
         const handleResize = () => setIsMobile(window.innerWidth <= 768);
@@ -17,39 +15,8 @@ export default function Table({ columns = [], data = [], actions = [] }) {
     }, []);
 
     const handleSort = (accessor) => {
-        const col = columns.find(c => c.accessor === accessor);
-        if (!col?.sortable) return;
-
-        setSortConfig((prev) => {
-            if (prev.key === accessor) {
-                return {
-                    key: accessor,
-                    direction: prev.direction === 'asc' ? 'desc' : 'asc'
-                };
-            }
-            return { key: accessor, direction: 'asc' };
-        });
+        if (onSort) onSort(accessor);
     };
-
-    const sortedData = useMemo(() => {
-        console.log('Sort Config:', sortConfig);
-        if (!sortConfig.key) return data;
-
-        return [...data].sort((a, b) => {
-            const aValue = a[sortConfig.key];
-            const bValue = b[sortConfig.key];
-
-            if (aValue === null || aValue === undefined) return 1;
-            if (bValue === null || bValue === undefined) return -1;
-
-            const aStr = String(aValue).toLowerCase();
-            const bStr = String(bValue).toLowerCase();
-
-            if (aStr < bStr) return sortConfig.direction === 'asc' ? -1 : 1;
-            if (aStr > bStr) return sortConfig.direction === 'asc' ? 1 : -1;
-            return 0;
-        });
-    }, [data, sortConfig]);
 
     return (
         <div className="table-container">
@@ -58,17 +25,17 @@ export default function Table({ columns = [], data = [], actions = [] }) {
                     <thead>
                         <tr>
                             {columns.map(col => (
-                                <th key={col.accessor} style={{ cursor: col.sortable ? 'pointer' : 'default' }}>
+                                <th key={col.accessor}>
                                     <div className="th-content">
                                         <span className="th-label">
                                             {col.label}
                                             {col.sortable && (
                                                 <i
                                                     className={`fas ${sortConfig.key === col.accessor
-                                                        ? sortConfig.direction === 'asc'
-                                                            ? 'fa-sort-up'
-                                                            : 'fa-sort-down'
-                                                        : 'fa-sort'
+                                                            ? sortConfig.direction === 'asc'
+                                                                ? 'fa-sort-up'
+                                                                : 'fa-sort-down'
+                                                            : 'fa-sort'
                                                         } sort-icon`}
                                                     onClick={() => handleSort(col.accessor)}
                                                     style={{ cursor: 'pointer' }}
@@ -95,7 +62,7 @@ export default function Table({ columns = [], data = [], actions = [] }) {
                         </tr>
                     </thead>
                     <tbody>
-                        {sortedData.map((row, rowIndex) => (
+                        {data.map((row, rowIndex) => (
                             <tr key={rowIndex}>
                                 {columns.map(col => (
                                     <td key={col.accessor}>
@@ -122,7 +89,7 @@ export default function Table({ columns = [], data = [], actions = [] }) {
                 </table>
             ) : (
                 <div className="mobile-cards">
-                    {sortedData.map((row, rowIndex) => (
+                    {data.map((row, rowIndex) => (
                         <div key={`card-${rowIndex}`} className="card-row">
                             {columns.map(col => (
                                 <div className="card-field" key={col.accessor}>

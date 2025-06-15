@@ -23,6 +23,24 @@ export default function Order() {
 
     const [filters, setFilters] = useState({});
 
+    const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
+
+    const handleSort = (accessor) => {
+        const col = columns.find(c => c.accessor === accessor);
+        if (!col?.sortable) return;
+
+        setSortConfig((prev) => {
+            if (prev.key === accessor) {
+                return {
+                    key: accessor,
+                    direction: prev.direction === 'asc' ? 'desc' : 'asc'
+                };
+            }
+            return { key: accessor, direction: 'asc' };
+        });
+    };
+
+
     const location = useLocation();
     const [toast, setToast] = useState(location.state?.toast || null);
 
@@ -106,9 +124,28 @@ export default function Order() {
         },
     ];
 
+    const sortedOrders = useMemo(() => {
+        if (!sortConfig.key) return filteredOrders;
+
+        return [...filteredOrders].sort((a, b) => {
+            const aValue = a[sortConfig.key];
+            const bValue = b[sortConfig.key];
+
+            if (aValue === null || aValue === undefined) return 1;
+            if (bValue === null || bValue === undefined) return -1;
+
+            const aStr = String(aValue).toLowerCase();
+            const bStr = String(bValue).toLowerCase();
+
+            if (aStr < bStr) return sortConfig.direction === 'asc' ? -1 : 1;
+            if (aStr > bStr) return sortConfig.direction === 'asc' ? 1 : -1;
+            return 0;
+        });
+    }, [filteredOrders, sortConfig]);
+
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = filteredOrders.slice(indexOfFirstItem, indexOfLastItem);
+    const currentItems = sortedOrders.slice(indexOfFirstItem, indexOfLastItem);
 
     return (
         <>
@@ -142,7 +179,13 @@ export default function Order() {
                                 onFilterChange={handleFilterChange}
                                 translations={t}
                             />
-                            <Table columns={columns} data={currentItems} actions={actions} />
+                            <Table
+                                columns={columns}
+                                data={currentItems}
+                                actions={actions}
+                                onSort={handleSort}
+                                sortConfig={sortConfig}
+                            />
                             <Pagination
                                 totalItems={filteredOrders.length}
                                 itemsPerPage={itemsPerPage}
