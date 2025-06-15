@@ -65,7 +65,7 @@ export default function Cart() {
         };
 
         loadCustomers();
-    }, []);
+    }, [request]);
 
     return (
         <div className="cart-page">
@@ -105,7 +105,7 @@ export default function Cart() {
                     value={customerId}
                     onChange={(e) => setCustomerId(e.target.value)}
                 >
-                    <option value="">{t.selectCustomer}</option>
+                    <option value="">{t.firstItemSelect}</option>
                     {customers.map(customer => (
                         <option key={customer.id} value={customer.id}>
                             {customer.firstName} {customer.lastName}

@@ -140,7 +140,9 @@ const Translations = {
             VISA: "Visa",
             MASTERCARD: "Mastercard",
             BITCOIN: "Bitcoin",
-        }
+        },
+        // Select
+        firstItemSelect: "-- Seleccionar --",
     },
     en: {
         goHome: "Go to home page",
@@ -283,7 +285,9 @@ const Translations = {
             VISA: "Visa",
             MASTERCARD: "Mastercard",
             BITCOIN: "Bitcoin",
-        }
+        },
+        // Select
+        firstItemSelect: "-- Select --",
     },
 };
 
