@@ -16,6 +16,7 @@ import FiltersBar from '../../components/FiltersBar/FiltersBar';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import { useHttp } from '../../hooks/useHttp';
 import Spinner from '../../components/Spinner/Spinner';
+import { normalizeText } from '../../utils/text';
 
 export default function Category() {
     const [categories, setCategories] = useState([]);
@@ -139,7 +140,7 @@ export default function Category() {
                 if (!filterValue) return true;
                 const categoryValue = category[key];
                 if (categoryValue === null || categoryValue === undefined) return false;
-                return String(categoryValue).toLowerCase().includes(filterValue.toLowerCase());
+                return normalizeText(String(categoryValue)).includes(normalizeText(filterValue));
             });
         });
     }, [categories, filters]);

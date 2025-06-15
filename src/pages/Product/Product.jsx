@@ -16,6 +16,7 @@ import FiltersBar from '../../components/FiltersBar/FiltersBar';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import { useHttp } from '../../hooks/useHttp';
 import Spinner from '../../components/Spinner/Spinner';
+import { normalizeText } from '../../utils/text';
 
 export default function Product() {
     const [products, setProducts] = useState([]);
@@ -139,7 +140,7 @@ export default function Product() {
                 if (!filterValue) return true;
                 const productValue = product[key];
                 if (productValue === null || productValue === undefined) return false;
-                return String(productValue).toLowerCase().includes(filterValue.toLowerCase());
+                return normalizeText(String(productValue)).includes(normalizeText(filterValue));
             });
         });
     }, [products, filters]);

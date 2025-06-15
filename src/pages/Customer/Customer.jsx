@@ -16,7 +16,7 @@ import FiltersBar from '../../components/FiltersBar/FiltersBar';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import { useHttp } from '../../hooks/useHttp';
 import Spinner from '../../components/Spinner/Spinner';
-
+import { normalizeText } from '../../utils/text';
 
 export default function Customer() {
     const [customers, setCustomers] = useState([]);
@@ -134,13 +134,17 @@ export default function Customer() {
         resetPage();
     };
 
+    const getDeepValue = (obj, path) => {
+        return path.split('.').reduce((acc, part) => acc && acc[part], obj);
+    };
+
     const filteredCustomers = useMemo(() => {
         return customers.filter(customer => {
             return Object.entries(filters).every(([key, filterValue]) => {
                 if (!filterValue) return true;
-                const customerValue = customer[key];
+                const customerValue = getDeepValue(customer, key);
                 if (customerValue === null || customerValue === undefined) return false;
-                return String(customerValue).toLowerCase().includes(filterValue.toLowerCase());
+                return normalizeText(String(customerValue)).includes(normalizeText(filterValue));
             });
         });
     }, [customers, filters]);
