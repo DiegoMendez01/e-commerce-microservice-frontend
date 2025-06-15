@@ -52,6 +52,7 @@ const Translations = {
         scrollToTop: "Volver al inicio",
         // Categories
         noCategory: "No hay categorías disponibles.",
+        category: "Categoría",
         // Table
         name: "Nombre",
         description: "Descripción",
@@ -67,6 +68,9 @@ const Translations = {
         cancel: "Cancelar",
         // Toast
         deletedSuccessfully: 'fue eliminado exitosamente.',
+        createdSuccessfully: '¡%s creada exitosamente!',
+        updatedSuccessfully: '¡%s actualizada exitosamente!',
+        errorSavingItem: 'Hubo un error al guardar la %s.',
     },
     en: {
         goHome: "Go to home page",
@@ -121,6 +125,7 @@ const Translations = {
         scrollToTop: "Back to top",
         // Categories
         noCategory: "No categories available.",
+        category: "Category",
         // Table
         name: "Name",
         description: "Description",
@@ -136,6 +141,9 @@ const Translations = {
         cancel: "Cancel",
         // Toast
         deletedSuccessfully: 'was deleted successfully.',
+        createdSuccessfully: '%s created successfully!',
+        updatedSuccessfully: '%s updated successfully!',
+        errorSavingItem: 'There was an error saving the %s.',
     },
 };
 

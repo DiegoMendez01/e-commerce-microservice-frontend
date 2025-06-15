@@ -10,7 +10,7 @@ import Pagination from '../../components/Pagination/Pagination';
 import usePagination from '../../hooks/usePagination';
 import Modal from '../../components/Modal/Modal';
 import Button from '../../components/Button/Button';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Toast from '../../components/Toast/Toast';
 
 export default function Category() {
@@ -20,7 +20,8 @@ export default function Category() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState(null);
 
-    const [toast, setToast] = useState(null);
+    const location = useLocation();
+    const [toast, setToast] = useState(location.state?.toast || null);
 
     const { currentPage, setCurrentPage, resetPage } = usePagination();
     const itemsPerPage = 5;
@@ -35,7 +36,14 @@ export default function Category() {
     };
 
     useEffect(() => {
-        async function loadData() {
+        const toastFromState = location?.state?.toast;
+
+        if (toastFromState) {
+            setToast(toastFromState);
+            window.history.replaceState({}, '', window.location.pathname);
+        }
+
+        const loadData = async () => {
             try {
                 const data = await fetchCategories();
                 setCategories(data);
@@ -43,9 +51,10 @@ export default function Category() {
             } catch (error) {
                 console.error('Error al cargar las categorías:', error);
             }
-        }
+        };
+
         loadData();
-    }, []);
+    }, [location]);
 
     const handleSearch = async (query) => {
         resetPage();
