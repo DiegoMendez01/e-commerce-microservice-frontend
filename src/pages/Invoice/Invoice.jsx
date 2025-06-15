@@ -169,7 +169,7 @@ export default function Invoice() {
                         </div>
                     </div>
                     <div className="pdf-button-container">
-                        <Button variant="outline" onClick={handleDownloadPDF}>
+                        <Button variant="outline" title={t.downloadPDF} onClick={handleDownloadPDF}>
                             {t.downloadPDF}
                         </Button>
                     </div>
