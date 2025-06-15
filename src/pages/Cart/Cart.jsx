@@ -13,7 +13,8 @@ import { fetchCustomers } from "../../api/Customer/apiCustomer";
 
 export default function Cart() {
     const { cart, updateQuantity, removeFromCart, clearCart } = useCart();
-    const { request, loading, error } = useHttp();
+    const { request, loading } = useHttp();
+    const [localError, setLocalError] = useState(null);
     const [customerId, setCustomerId] = useState("");
     const [paymentMethod, setPaymentMethod] = useState("PAYPAL");
     const [success, setSuccess] = useState(false);
@@ -29,6 +30,12 @@ export default function Cart() {
     const totalAmount = cart.reduce((acc, item) => acc + item.quantity * 10, 0);
 
     const handleOrder = async () => {
+        if (!customerId || cart.length === 0) {
+            setModalMessage(t.formIncomplete);
+            setModalOpen(true);
+            return;
+        }
+
         const stockExceeded = cart.some(item => item.quantity > item.availableQuantity);
         if (stockExceeded) {
             setModalMessage(t.stockExceededMessage);
@@ -45,12 +52,14 @@ export default function Cart() {
         };
 
         try {
-            const id = await createOrder(orderData, request);
+            await createOrder(orderData, request);
             clearCart();
             setSuccess(true);
-            console.log("Orden enviada. ID:", id);
+            setLocalError(false);
         } catch (e) {
             console.error("Error al crear orden:", e);
+            setSuccess(false);
+            setLocalError(true);
         }
     };
 
@@ -66,6 +75,13 @@ export default function Cart() {
 
         loadCustomers();
     }, [request]);
+
+    useEffect(() => {
+        if (success) {
+            const timeout = setTimeout(() => setSuccess(false), 3000);
+            return () => clearTimeout(timeout);
+        }
+    }, [success]);
 
     return (
         <div className="cart-page">
@@ -87,7 +103,7 @@ export default function Cart() {
                                     min="1"
                                     value={item.quantity}
                                     onChange={e =>
-                                        updateQuantity(item.productId, parseInt(e.target.value))
+                                        updateQuantity(item.productId, Math.max(1, parseInt(e.target.value)))
                                     }
                                 />
                                 <Button variant="outline" title={t.removeButton} onClick={() => removeFromCart(item.productId)}>{t.removeButton}</Button>
@@ -125,12 +141,16 @@ export default function Cart() {
                 </Button>
 
                 {loading && <p>{t.processingOrder}</p>}
-                {error && <p className="error">{t.orderError}</p>}
-                {success && <p className="success">{t.orderSuccess}</p>}
+                {!loading && localError && <p className="error">{t.orderError}</p>}
+                {!loading && success && !localError && <p className="success">{t.orderSuccess}</p>}
             </div>
             <Modal
                 isOpen={modalOpen}
-                title={t.stockExceededTitle}
+                title={
+                    modalMessage === t.formIncomplete
+                        ? t.orderError
+                        : t.stockExceededTitle || t.orderError
+                }
                 onClose={() => setModalOpen(false)}
                 cancelText={t.closeButton}
             >

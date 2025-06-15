@@ -83,6 +83,8 @@ const Translations = {
         confirm: "Confirmar",
         cancel: "Cancelar",
         closeButton: "Cerrar",
+        confirmationPrompt: "¿Estás seguro de que deseas realizar esta orden?",
+        formIncomplete: "Por favor, selecciona un cliente y agrega al menos un producto al carrito.",
         // Toast
         createdSuccessfully: '¡%s %v exitosamente!',
         updatedSuccessfully: '¡%s %v exitosamente!',
@@ -228,6 +230,8 @@ const Translations = {
         confirm: "Confirm",
         cancel: "Cancel",
         closeButton: "Close",
+        confirmationPrompt: "Are you sure you want to place this order?",
+        formIncomplete: "Please select a customer and add at least one product to the cart.",
         // Toast
         deletedSuccessfully: '%s was deleted successfully.',
         createdSuccessfully: '%s created successfully!',
