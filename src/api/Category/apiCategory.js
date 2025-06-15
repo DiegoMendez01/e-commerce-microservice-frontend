@@ -25,3 +25,9 @@ export function updateCategory(id, categoryData) {
     body: categoryData,
   });
 }
+
+export function deleteCategory(id) {
+  return apiFetch(`/categories/${id}`, {
+    method: "DELETE",
+  });
+}

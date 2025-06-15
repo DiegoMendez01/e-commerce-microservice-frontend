@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Category.css';
-import { fetchCategories, searchCategories } from '../../api/Category/apiCategory';
+import { fetchCategories, searchCategories, deleteCategory } from '../../api/Category/apiCategory';
 import { useLanguage } from '../../hooks/useLanguage';
 import Translations from '../../Translations/Translations';
 import HeadingH2 from '../../components/HeadingH2/HeadingH2';
@@ -11,6 +11,7 @@ import usePagination from '../../hooks/usePagination';
 import Modal from '../../components/Modal/Modal';
 import Button from '../../components/Button/Button';
 import { useNavigate } from 'react-router-dom';
+import Toast from '../../components/Toast/Toast';
 
 export default function Category() {
     const [categories, setCategories] = useState([]);
@@ -19,6 +20,8 @@ export default function Category() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState(null);
 
+    const [toast, setToast] = useState(null);
+
     const { currentPage, setCurrentPage, resetPage } = usePagination();
     const itemsPerPage = 5;
 
@@ -26,6 +29,10 @@ export default function Category() {
 
     const { language } = useLanguage();
     const t = Translations[language];
+
+    const showToast = (message, type = 'success') => {
+        setToast({ message, type });
+    };
 
     useEffect(() => {
         async function loadData() {
@@ -68,8 +75,26 @@ export default function Category() {
         setSelectedCategory(null);
     };
 
-    const handleDeleteConfirm = () => {
-        closeDeleteModal();
+    const handleDeleteConfirm = async () => {
+        if (!selectedCategory) return;
+
+        const deletedName = selectedCategory.name;
+
+        try {
+            await deleteCategory(selectedCategory.id);
+
+            setCategories(prev =>
+                prev.filter(cat => cat.id !== selectedCategory.id)
+            );
+            setOriginalCategories(prev =>
+                prev.filter(cat => cat.id !== selectedCategory.id)
+            );
+
+            closeDeleteModal();
+            showToast(`${deletedName || ''} ${t.deletedSuccessfully}`);
+        } catch (error) {
+            console.error('Error eliminando la categoría:', error);
+        }
     };
 
     const columns = [
@@ -140,6 +165,13 @@ export default function Category() {
             >
                 <p>{t.deleteConfirmation.replace('%s', selectedCategory?.name)}</p>
             </Modal>
+            {toast && (
+                <Toast
+                    message={toast.message}
+                    type={toast.type}
+                    onClose={() => setToast(null)}
+                />
+            )}
         </>
     );
 }

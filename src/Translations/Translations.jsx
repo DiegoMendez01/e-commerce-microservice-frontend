@@ -65,6 +65,8 @@ const Translations = {
         deleteConfirmation: "¿Estás seguro de que deseas eliminar la categoría '%s'?",
         confirm: "Confirmar",
         cancel: "Cancelar",
+        // Toast
+        deletedSuccessfully: 'fue eliminado exitosamente.',
     },
     en: {
         goHome: "Go to home page",
@@ -132,6 +134,8 @@ const Translations = {
         deleteConfirmation: "Are you sure you want to delete the category '%s'?",
         confirm: "Confirm",
         cancel: "Cancel",
+        // Toast
+        deletedSuccessfully: 'was deleted successfully.',
     },
 };
 

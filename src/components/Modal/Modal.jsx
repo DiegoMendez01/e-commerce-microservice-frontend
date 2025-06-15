@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import './Modal.css';
+import Button from '../Button/Button';
 
 export default function Modal({ isOpen, icon = 'fa-exclamation-triangle', title, children, onClose, onConfirm, confirmText, cancelText }) {
     useEffect(() => {
@@ -24,8 +25,16 @@ export default function Modal({ isOpen, icon = 'fa-exclamation-triangle', title,
                     {children}
                 </div>
                 <div className="modal-footer">
-                    {cancelText && <button className="btn btn--outline" onClick={onClose}>{cancelText}</button>}
-                    {confirmText && <button className="btn btn--primary" onClick={onConfirm}>{confirmText}</button>}
+                    {cancelText && (
+                        <Button variant="outline" onClick={onClose}>
+                            {cancelText}
+                        </Button>
+                    )}
+                    {confirmText && (
+                        <Button variant="primary" onClick={onConfirm}>
+                            {confirmText}
+                        </Button>
+                    )}
                 </div>
             </div>
         </div>
