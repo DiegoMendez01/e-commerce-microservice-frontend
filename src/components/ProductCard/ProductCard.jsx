@@ -3,11 +3,18 @@ import Card from '../Card/Card';
 import { useLanguage } from '../../hooks/useLanguage';
 import Translations from '../../Translations/Translations';
 import Button from '../Button/Button';
+import { useCart } from '../../hooks/useCart';
 
 export default function ProductCard({ product }) {
   const { name, price, availableQuantity, description, categoryName } = product;
   const { language } = useLanguage();
   const t = Translations[language];
+
+  const { addToCart } = useCart();
+
+  const handleAddToCart = () => {
+    addToCart(product);
+  };
 
   return (
     <Card
@@ -27,6 +34,7 @@ export default function ProductCard({ product }) {
           variant="outline"
           disabled={availableQuantity === 0}
           title={t.buyButton}
+          onClick={handleAddToCart}
         >
           {t.buyButton}
         </Button>

@@ -4,8 +4,10 @@ import Navbar from './components/Navbar/Navbar';
 import AccessibilityMenu from './components/AccessibilityMenu/AccessibilityMenu';
 import ScrollToTopButton from './components/ScrollToTopButton/ScrollToTopButton';
 import Header from './components/Header/Header';
-import { LanguageProvider } from './providers/LanguageProvider';
 import Footer from './components/Footer/Footer';
+
+import { CartProvider } from './providers/CartProvider';
+import { LanguageProvider } from './providers/LanguageProvider';
 
 import Home from './pages/Home/Home';
 import Sitemap from './pages/Sitemap/Sitemap';
@@ -15,34 +17,38 @@ import Product from './pages/Product/Product';
 import ProductFormPage from './pages/ProductFormPage/ProductFormPage';
 import Customer from './pages/Customer/Customer';
 import CustomerFormPage from './pages/CustomerFormPage/CustomerFormPage';
+import Cart from './pages/Cart/Cart';
 
 function App() {
   return (
     <LanguageProvider>
-      <Router>
-        <div className="layout">
-          <Header />
-          <Navbar />
-          <main className="content">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/sitemap" element={<Sitemap />} />
-              <Route path="/categories" element={<Category />} />
-              <Route path="/categories/edit/:id" element={<CategoryFormPage />} />
-              <Route path="/categories/create" element={<CategoryFormPage />} />
-              <Route path="/products" element={<Product />} />
-              <Route path="/products/edit/:id" element={<ProductFormPage />} />
-              <Route path="/products/create" element={<ProductFormPage />} />
-              <Route path="/customers" element={<Customer />} />
-              <Route path="/customers/edit/:id" element={<CustomerFormPage />} />
-              <Route path="/customers/create" element={<CustomerFormPage />} />
-            </Routes>
-          </main>
-          <AccessibilityMenu />
-          <ScrollToTopButton />
-          <Footer />
-        </div>
-      </Router>
+      <CartProvider>
+        <Router>
+          <div className="layout">
+            <Header />
+            <Navbar />
+            <main className="content">
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/sitemap" element={<Sitemap />} />
+                <Route path="/categories" element={<Category />} />
+                <Route path="/categories/edit/:id" element={<CategoryFormPage />} />
+                <Route path="/categories/create" element={<CategoryFormPage />} />
+                <Route path="/products" element={<Product />} />
+                <Route path="/products/edit/:id" element={<ProductFormPage />} />
+                <Route path="/products/create" element={<ProductFormPage />} />
+                <Route path="/customers" element={<Customer />} />
+                <Route path="/customers/edit/:id" element={<CustomerFormPage />} />
+                <Route path="/customers/create" element={<CustomerFormPage />} />
+                <Route path="/cart" element={<Cart />} />
+              </Routes>
+            </main>
+            <AccessibilityMenu />
+            <ScrollToTopButton />
+            <Footer />
+          </div>
+        </Router>
+      </CartProvider>
     </LanguageProvider>
   );
 }

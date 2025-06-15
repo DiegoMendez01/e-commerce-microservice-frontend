@@ -4,12 +4,16 @@ import { useLanguage } from '../../hooks/useLanguage';
 import Translations from '../../Translations/Translations';
 import NavbarItem from '../NavbarItem/NavbarItem';
 import getNavbarItems from '../../data/navbarItems';
+import { useCart } from '../../hooks/useCart';
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { language } = useLanguage();
   const t = Translations[language];
   const [openDropdownId, setOpenDropdownId] = useState(null);
+
+  const { cart } = useCart();
+  const totalItems = cart.length;
 
   const navbarRef = useRef(null);
 
@@ -33,7 +37,7 @@ export default function Navbar() {
     setOpenDropdownId(null);
   };
 
-  const items = getNavbarItems(t)
+  const items = getNavbarItems(t, totalItems);
 
   return (
     <nav ref={navbarRef} className="navbar" role="navigation" aria-label="Main navigation">

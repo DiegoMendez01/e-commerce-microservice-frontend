@@ -117,6 +117,10 @@ const Translations = {
         enterHouseNumber: "Ingresa el número",
         enterZipCode: "Ingresa el código postal",
         customerGender: 'o',
+        // Cart
+        cartNavbar: "Carrito",
+        cart: "Carrito de compras",
+        goCart: "Ir a carrito",
     },
     en: {
         goHome: "Go to home page",
@@ -236,6 +240,10 @@ const Translations = {
         enterHouseNumber: "Enter house number",
         enterZipCode: "Enter zip code",
         customerGender: '',
+        // Cart
+        cartNavbar: "Carts",
+        cart: "Cart",
+        goCart: "Go to cart",
     },
 };
 
