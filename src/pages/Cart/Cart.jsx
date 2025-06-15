@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useCart } from "../../hooks/useCart";
 import { useHttp } from "../../hooks/useHttp";
 import { createOrder } from "../../api/Order/apiOrder";
@@ -9,6 +9,7 @@ import Translations from "../../Translations/Translations";
 import { useLanguage } from "../../hooks/useLanguage";
 import PaymentMethodSelect from "../../components/PaymentMethodSelect/PaymentMethodSelect";
 import Modal from "../../components/Modal/Modal";
+import { fetchCustomers } from "../../api/Customer/apiCustomer";
 
 export default function Cart() {
     const { cart, updateQuantity, removeFromCart, clearCart } = useCart();
@@ -16,6 +17,8 @@ export default function Cart() {
     const [customerId, setCustomerId] = useState("");
     const [paymentMethod, setPaymentMethod] = useState("PAYPAL");
     const [success, setSuccess] = useState(false);
+
+    const [customers, setCustomers] = useState([]);
 
     const [modalOpen, setModalOpen] = useState(false);
     const [modalMessage, setModalMessage] = useState("");
@@ -51,6 +54,19 @@ export default function Cart() {
         }
     };
 
+    useEffect(() => {
+        const loadCustomers = async () => {
+            try {
+                const data = await fetchCustomers(request);
+                setCustomers(data);
+            } catch (error) {
+                console.error("Error al cargar clientes:", error);
+            }
+        };
+
+        loadCustomers();
+    }, []);
+
     return (
         <div className="cart-page">
             <div className="cart-items">
@@ -74,7 +90,7 @@ export default function Cart() {
                                         updateQuantity(item.productId, parseInt(e.target.value))
                                     }
                                 />
-                                <Button onClick={() => removeFromCart(item.productId)}>{t.removeButton}</Button>
+                                <Button variant="outline" title={t.removeButton} onClick={() => removeFromCart(item.productId)}>{t.removeButton}</Button>
                             </div>
                         </div>
                     ))
@@ -85,17 +101,25 @@ export default function Cart() {
                 <h3>{t.orderSummary}</h3>
                 <p>{t.totalLabel}: <strong>${totalAmount.toFixed(2)}</strong></p>
 
-                <input
-                    placeholder="ID del Cliente"
+                <select
                     value={customerId}
                     onChange={(e) => setCustomerId(e.target.value)}
-                />
+                >
+                    <option value="">{t.selectCustomer}</option>
+                    {customers.map(customer => (
+                        <option key={customer.id} value={customer.id}>
+                            {customer.firstName} {customer.lastName}
+                        </option>
+                    ))}
+                </select>
 
                 <PaymentMethodSelect value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)} />
 
                 <Button
                     onClick={handleOrder}
                     disabled={!customerId || cart.length === 0 || loading}
+                    variant="outline"
+                    title={t.confirmOrder}
                 >
                     {t.confirmOrder}
                 </Button>

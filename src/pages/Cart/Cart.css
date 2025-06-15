@@ -23,7 +23,6 @@
 .cart-item-card {
   display: flex;
   flex-direction: column;
-  background: var(--primary-white);
   border: 1px solid var(--border-footer);
   border-radius: 8px;
   padding: 1rem;
