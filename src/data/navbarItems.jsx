@@ -20,6 +20,11 @@ const getNavbarItems = (t, totalItems = 0) => [
     title: t.goCart,
     to: '/cart'
   },
+  {
+    label: t.orders,
+    title: t.goOrder,
+    to: '/orders'
+  },
 ];
 
 export default getNavbarItems;

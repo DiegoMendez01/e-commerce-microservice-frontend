@@ -109,6 +109,7 @@ const Translations = {
         lastName: "Segundo nombre",
         errorLoadingCustomers: "Error al cargar los clientes",
         noCustomer: "No hay clientes disponibles.",
+        customerUnknown: "Sin cliente",
         street: "Calle",
         houseNumber: "Número",
         zipCode: "Código postal",
@@ -145,6 +146,15 @@ const Translations = {
         },
         // Select
         firstItemSelect: "-- Seleccionar --",
+        // Orders
+        goOrders: "Ir a pedidos",
+        orders: "Pedidos",
+        reference: "Referencia",
+        totalAmount: "Monto total",
+        paymentMethod: "Método de pago",
+        customerId: "Cliente ID",
+        noOrder: "No hay pedidos disponibles.",
+        errorLoadingOrders: "Error al cargar los pedidos",
     },
     en: {
         goHome: "Go to home page",
@@ -256,6 +266,7 @@ const Translations = {
         lastName: "Last Name",
         errorLoadingCustomers: "Error loading customers",
         noCustomer: "No customers available.",
+        customerUnknown: "Customer Unknown",
         street: "Street",
         houseNumber: "Number",
         zipCode: "Zip code",
@@ -292,6 +303,15 @@ const Translations = {
         },
         // Select
         firstItemSelect: "-- Select --",
+        // Orders
+        goOrders: "Go to orders",
+        orders: "Orders",
+        reference: "Reference",
+        totalAmount: "Total amount",
+        paymentMethod: "Payment method",
+        customerId: "Customer ID",
+        noOrder: "No orders available",
+        errorLoadingOrders: "Error loading orders",
     },
 };
 

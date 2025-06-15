@@ -32,6 +32,7 @@ export default function Table({ columns = [], data = [], actions = [] }) {
     };
 
     const sortedData = useMemo(() => {
+        console.log('Sort Config:', sortConfig);
         if (!sortConfig.key) return data;
 
         return [...data].sort((a, b) => {
