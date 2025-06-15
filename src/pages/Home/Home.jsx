@@ -8,6 +8,8 @@ import usePagination from '../../hooks/usePagination';
 import { useLanguage } from '../../hooks/useLanguage';
 import Translations from '../../Translations/Translations';
 import HeadingH2 from '../../components/HeadingH2/HeadingH2';
+import { useHttp } from '../../hooks/useHttp';
+import Spinner from '../../components/Spinner/Spinner';
 
 export default function Home() {
   const [products, setProducts] = useState([]);
@@ -17,13 +19,15 @@ export default function Home() {
   const { currentPage, setCurrentPage, resetPage } = usePagination();
   const itemsPerPage = 5;
 
+  const { request, loading, error } = useHttp();
+
   const { language } = useLanguage();
   const t = Translations[language];
 
   useEffect(() => {
     async function loadData() {
       try {
-        const data = await fetchProducts();
+        const data = await fetchProducts(request);
         setProducts(data);
         setOriginalProducts(data);
       } catch (error) {
@@ -31,7 +35,7 @@ export default function Home() {
       }
     }
     loadData();
-  }, []);
+  }, [request]);
 
   const handleSearch = async (query) => {
     resetPage();
@@ -41,7 +45,7 @@ export default function Home() {
       return;
     }
     try {
-      const results = await searchProducts(query);
+      const results = await searchProducts(query, request);
       setProducts(results);
       setErrorMessage('');
     } catch (error) {
@@ -63,24 +67,34 @@ export default function Home() {
       <div>
         <HeadingH2>{t.store}</HeadingH2>
       </div>
-      {errorMessage ? (
-        <div className="error-message">{errorMessage}</div>
-      ) : products.length === 0 ? (
-        <div className="error-message">{t.noProducts}</div>
-      ) : (
-        <>
-          <div className="product-list">
-            {currentItems.map(product => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-          <Pagination
-            totalItems={products.length}
-            itemsPerPage={itemsPerPage}
-            currentPage={currentPage}
-            onPageChange={setCurrentPage}
-          />
-        </>
+      {loading && <Spinner />}
+
+      {!loading && error && (
+        <div className="error-message">
+          {t.errorLoadingCustomers || 'Error loading customers'}
+        </div>
+      )}
+
+      {!loading && !error && (
+        errorMessage ? (
+          <div className="error-message">{errorMessage}</div>
+        ) : products.length === 0 ? (
+          <div className="error-message">{t.noProducts}</div>
+        ) : (
+          <>
+            <div className="product-list">
+              {currentItems.map(product => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+            <Pagination
+              totalItems={products.length}
+              itemsPerPage={itemsPerPage}
+              currentPage={currentPage}
+              onPageChange={setCurrentPage}
+            />
+          </>
+        )
       )}
     </div>
   );
