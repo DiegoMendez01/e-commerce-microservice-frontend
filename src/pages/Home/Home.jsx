@@ -61,7 +61,7 @@ export default function Home() {
       <SearchBar onSearch={handleSearch} />
 
       <div>
-        <HeadingH2>{t.products}</HeadingH2>
+        <HeadingH2>{t.store}</HeadingH2>
       </div>
       {errorMessage ? (
         <div className="error-message">{errorMessage}</div>
