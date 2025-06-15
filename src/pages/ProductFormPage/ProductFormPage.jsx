@@ -33,40 +33,40 @@ export default function ProductFormPage() {
 
         fetchCategories(request)
             .then(setCategories)
-            .catch((error) => console.error('Error loading categories:', error));
+            .catch((error) => console.error('Error loading products:', error));
     }, [id, request]);
 
     const entityName = t.product || 'Product';
+    const gender = t.productGender || 'o';
+
+    const getGenderedVerb = (baseVerb) => `${baseVerb}${gender}`;
+
+    const getMessage = (template, verb) =>
+        template.replace('%s', entityName).replace('%v', verb);
 
     const handleSubmit = async (formData) => {
         try {
+            let verb, message;
             if (id) {
                 await updateProduct(id, formData, request);
-                setToast({
-                    message: t.updatedSuccessfully.replace('%s', entityName),
-                    type: 'success'
-                });
+                verb = getGenderedVerb('actualizad');
+                message = getMessage(t.updatedSuccessfully, verb);
             } else {
                 await createProduct(formData, request);
-                setToast({
-                    message: t.createdSuccessfully.replace('%s', entityName),
-                    type: 'success'
-                });
+                verb = getGenderedVerb('cread');
+                message = getMessage(t.createdSuccessfully, verb);
             }
+
+            setToast({ message, type: 'success' });
 
             setTimeout(() => {
                 navigate('/products', {
-                    state: {
-                        toast: {
-                            message: t.createdSuccessfully.replace('%s', entityName),
-                            type: 'success'
-                        }
-                    }
+                    state: { toast: { message, type: 'success' } }
                 });
             }, 1000);
 
         } catch (error) {
-            console.error('Error al guardar la categoría:', error);
+            console.error('Error al guardar el producto:', error);
             setToast({
                 message: t.errorSavingItem.replace('%s', entityName.toLowerCase()),
                 type: 'error'

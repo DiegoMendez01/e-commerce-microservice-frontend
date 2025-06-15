@@ -31,31 +31,31 @@ export default function CategoryFormPage() {
     }, [id, request]);
 
     const entityName = t.category || 'Category';
+    const gender = t.categoryGender || 'a';
+
+    const getGenderedVerb = (baseVerb) => `${baseVerb}${gender}`;
+
+    const getMessage = (template, verb) =>
+        template.replace('%s', entityName).replace('%v', verb);
 
     const handleSubmit = async (formData) => {
         try {
+            let verb, message;
             if (id) {
                 await updateCategory(id, formData, request);
-                setToast({
-                    message: t.updatedSuccessfully.replace('%s', entityName),
-                    type: 'success'
-                });
+                verb = getGenderedVerb('actualizad');
+                message = getMessage(t.updatedSuccessfully, verb);
             } else {
                 await createCategory(formData, request);
-                setToast({
-                    message: t.createdSuccessfully.replace('%s', entityName),
-                    type: 'success'
-                });
+                verb = getGenderedVerb('cread');
+                message = getMessage(t.createdSuccessfully, verb);
             }
+
+            setToast({ message, type: 'success' });
 
             setTimeout(() => {
                 navigate('/categories', {
-                    state: {
-                        toast: {
-                            message: t.createdSuccessfully.replace('%s', entityName),
-                            type: 'success'
-                        }
-                    }
+                    state: { toast: { message, type: 'success' } }
                 });
             }, 1000);
 

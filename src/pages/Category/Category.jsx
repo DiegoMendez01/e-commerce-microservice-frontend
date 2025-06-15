@@ -95,10 +95,21 @@ export default function Category() {
     const handleDeleteConfirm = async () => {
         if (!selectedCategory) return;
 
-        const deletedName = selectedCategory.name;
+        let verb, message;
 
         try {
             await deleteCategory(selectedCategory.id, request);
+
+            const entityName = t.category || 'Category';
+            const gender = t.categoryGender || 'a';
+
+            const getGenderedVerb = (baseVerb) => `${baseVerb}${gender}`;
+
+            const getMessage = (template, verb) =>
+                template.replace('%s', entityName).replace('%v', verb);
+
+            verb = getGenderedVerb('eliminad');
+            message = getMessage(t.deletedSuccessfully, verb);
 
             setCategories(prev =>
                 prev.filter(cat => cat.id !== selectedCategory.id)
@@ -108,7 +119,7 @@ export default function Category() {
             );
 
             closeDeleteModal();
-            showToast(`${deletedName || ''} ${t.deletedSuccessfully}`);
+            showToast(message);
         } catch (error) {
             console.error('Error eliminando la categoría:', error);
         }

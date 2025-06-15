@@ -82,8 +82,8 @@ export default function Product() {
         }
     };
 
-    const openDeleteModal = (category) => {
-        setSelectedProduct(category);
+    const openDeleteModal = (product) => {
+        setSelectedProduct(product);
         setIsModalOpen(true);
     };
 
@@ -95,10 +95,21 @@ export default function Product() {
     const handleDeleteConfirm = async () => {
         if (!selectedProduct) return;
 
-        const deletedName = selectedProduct.name;
+        let verb, message;
 
         try {
             await deleteProduct(selectedProduct.id, request);
+
+            const entityName = t.product || 'Product';
+            const gender = t.productGender || 'o';
+
+            const getGenderedVerb = (baseVerb) => `${baseVerb}${gender}`;
+
+            const getMessage = (template, verb) =>
+                template.replace('%s', entityName).replace('%v', verb);
+
+            verb = getGenderedVerb('eliminad');
+            message = getMessage(t.deletedSuccessfully, verb);
 
             setProducts(prev =>
                 prev.filter(cat => cat.id !== selectedProduct.id)
@@ -108,7 +119,7 @@ export default function Product() {
             );
 
             closeDeleteModal();
-            showToast(`${deletedName || ''} ${t.deletedSuccessfully}`);
+            showToast(message);
         } catch (error) {
             console.error('Error eliminando el producto:', error);
         }
