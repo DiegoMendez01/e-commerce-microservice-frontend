@@ -75,12 +75,6 @@ export default function Category() {
 
     const actions = [
         {
-            icon: 'fas fa-eye',
-            variant: 'outline',
-            label: t.view,
-            onClick: (row) => alert(`Ver categoría: ${row.name}`)
-        },
-        {
             icon: 'fas fa-edit',
             label: t.edit,
             onClick: (row) => alert(`Editar categoría: ${row.name}`)
