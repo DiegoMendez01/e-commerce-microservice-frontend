@@ -72,15 +72,19 @@ export default function Category() {
         const loadData = async () => {
             try {
                 const data = await fetchCategories(request);
-                setCategories(data);
-                setOriginalCategories(data);
+                setCategories(data || []);
+                setOriginalCategories(data || []);
+                setErrorMessage('');
             } catch (error) {
                 console.error('Error al cargar las categorías:', error);
+                setCategories([]);
+                setOriginalCategories([]);
+                setErrorMessage(t.errorLoadingCategories);
             }
         };
 
         loadData();
-    }, [location, request]);
+    }, [location, request, t.errorLoadingCategories]);
 
     const handleSearch = async (query) => {
         resetPage();
@@ -202,7 +206,7 @@ export default function Category() {
 
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = sortedCategories.slice(indexOfFirstItem, indexOfLastItem);
+    const currentItems = Array.isArray(sortedCategories) ? sortedCategories.slice(indexOfFirstItem, indexOfLastItem) : [];
 
     return (
         <>

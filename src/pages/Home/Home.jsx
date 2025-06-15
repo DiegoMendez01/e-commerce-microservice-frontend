@@ -58,7 +58,7 @@ export default function Home() {
   // Paginación
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = products.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = Array.isArray(products) ? products.slice(indexOfFirstItem, indexOfLastItem) : [];
 
   return (
     <div className="home">

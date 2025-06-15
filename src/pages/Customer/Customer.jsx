@@ -72,15 +72,19 @@ export default function Customer() {
         const loadData = async () => {
             try {
                 const data = await fetchCustomers(request);
-                setCustomers(data);
-                setOriginalCustomers(data);
+                setCustomers(data || []);
+                setOriginalCustomers(data || []);
+                setErrorMessage('');
             } catch (error) {
                 console.error('Error al cargar los clientes:', error);
+                setCustomers([]);
+                setOriginalCustomers([]);
+                setErrorMessage(t.errorLoadingCustomers);
             }
         };
 
         loadData();
-    }, [location, request]);
+    }, [location, request, t.errorLoadingCustomers]);
 
     const handleSearch = async (query) => {
         resetPage();
@@ -224,7 +228,7 @@ export default function Customer() {
 
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = sortedCustomers.slice(indexOfFirstItem, indexOfLastItem);
+    const currentItems = Array.isArray(sortedCustomers) ? sortedCustomers.slice(indexOfFirstItem, indexOfLastItem) : [];
 
     return (
         <>

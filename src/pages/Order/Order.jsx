@@ -141,7 +141,7 @@ export default function Order() {
 
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = sortedOrders.slice(indexOfFirstItem, indexOfLastItem);
+    const currentItems = Array.isArray(sortedOrders) ? sortedOrders.slice(indexOfFirstItem, indexOfLastItem) : [];
 
     return (
         <>

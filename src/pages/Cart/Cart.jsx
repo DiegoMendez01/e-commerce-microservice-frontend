@@ -19,6 +19,8 @@ export default function Cart() {
     const [paymentMethod, setPaymentMethod] = useState("PAYPAL");
     const [success, setSuccess] = useState(false);
 
+    const [orderLoading, setOrderLoading] = useState(false);
+
     const [customers, setCustomers] = useState([]);
 
     const [modalOpen, setModalOpen] = useState(false);
@@ -52,6 +54,7 @@ export default function Cart() {
         };
 
         try {
+            setOrderLoading(true);
             await createOrder(orderData, request);
             clearCart();
             setSuccess(true);
@@ -60,6 +63,8 @@ export default function Cart() {
             console.error("Error al crear orden:", e);
             setSuccess(false);
             setLocalError(true);
+        } finally {
+            setOrderLoading(false);
         }
     };
 
@@ -122,11 +127,13 @@ export default function Cart() {
                     onChange={(e) => setCustomerId(e.target.value)}
                 >
                     <option value="">{t.firstItemSelect}</option>
-                    {customers.map(customer => (
-                        <option key={customer.id} value={customer.id}>
-                            {customer.firstName} {customer.lastName}
-                        </option>
-                    ))}
+                    {Array.isArray(customers) &&
+                        customers.map(customer => (
+                            <option key={customer.id} value={customer.id}>
+                                {customer.firstName} {customer.lastName}
+                            </option>
+                        ))
+                    }
                 </select>
 
                 <PaymentMethodSelect value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)} />
@@ -140,9 +147,9 @@ export default function Cart() {
                     {t.confirmOrder}
                 </Button>
 
-                {loading && <p>{t.processingOrder}</p>}
-                {!loading && localError && <p className="error">{t.orderError}</p>}
-                {!loading && success && !localError && <p className="success">{t.orderSuccess}</p>}
+                {orderLoading && <p>{t.processingOrder}</p>}
+                {!orderLoading && localError && <p className="error">{t.orderError}</p>}
+                {!orderLoading && success && !localError && <p className="success">{t.orderSuccess}</p>}
             </div>
             <Modal
                 isOpen={modalOpen}

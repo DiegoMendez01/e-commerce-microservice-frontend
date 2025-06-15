@@ -72,15 +72,19 @@ export default function Product() {
         const loadData = async () => {
             try {
                 const data = await fetchProducts(request);
-                setProducts(data);
-                setOriginalProducts(data);
+                setProducts(data || []);
+                setOriginalProducts(data || []);
+                setErrorMessage('');
             } catch (error) {
                 console.error('Error al cargar los productos:', error);
+                setProducts([]);
+                setOriginalProducts([]);
+                setErrorMessage(t.errorLoadingCategories);
             }
         };
 
         loadData();
-    }, [location, request]);
+    }, [location, request, t.errorLoadingCategories]);
 
     const handleSearch = async (query) => {
         resetPage();
@@ -204,7 +208,7 @@ export default function Product() {
 
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = sortedProducts.slice(indexOfFirstItem, indexOfLastItem);
+    const currentItems = Array.isArray(sortedProducts) ? sortedProducts.slice(indexOfFirstItem, indexOfLastItem) : [];
 
     return (
         <>
