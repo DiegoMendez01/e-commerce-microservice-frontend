@@ -19,9 +19,11 @@ import { normalizeText } from '../../utils/text';
 export default function Order() {
     const [orders, setOrders] = useState([]);
 
-    const { request, loading, error } = useHttp();
+    const { request, error } = useHttp();
 
     const [filters, setFilters] = useState({});
+
+    const [dataLoaded, setDataLoaded] = useState(false);
 
     const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
 
@@ -53,13 +55,6 @@ export default function Order() {
     const t = Translations[language];
 
     useEffect(() => {
-        const toastFromState = location?.state?.toast;
-
-        if (toastFromState) {
-            setToast(toastFromState);
-            window.history.replaceState({}, '', window.location.pathname);
-        }
-
         const loadData = async () => {
             try {
                 const rawOrders = await fetchOrders(request);
@@ -82,13 +77,14 @@ export default function Order() {
 
                 setOrders(ordersWithCustomer);
             } catch (error) {
-                console.error('Error al cargar las ordenes:', error);
+                console.error('Error al cargar las órdenes:', error);
+            } finally {
+                setDataLoaded(true);
             }
         };
 
         loadData();
     }, [location, request, t.customerUnknown]);
-
 
     const handleFilterChange = (accessor, value) => {
         setFilters(prev => ({
@@ -160,40 +156,36 @@ export default function Order() {
                     <HeadingH2>{t.orders}</HeadingH2>
                 </div>
 
-                {loading && <Spinner />}
-
-                {!loading && error && (
+                {!dataLoaded ? (
+                    <Spinner />
+                ) : error ? (
                     <div className="error-message">
                         {t.errorLoadingOrders || 'Error loading orders'}
                     </div>
-                )}
-
-                {!loading && !error && (
-                    filteredOrders.length === 0 ? (
-                        <div className="error-message">{t.noOrder}</div>
-                    ) : (
-                        <>
-                            <FiltersBar
-                                columns={columns}
-                                filters={filters}
-                                onFilterChange={handleFilterChange}
-                                translations={t}
-                            />
-                            <Table
-                                columns={columns}
-                                data={currentItems}
-                                actions={actions}
-                                onSort={handleSort}
-                                sortConfig={sortConfig}
-                            />
-                            <Pagination
-                                totalItems={filteredOrders.length}
-                                itemsPerPage={itemsPerPage}
-                                currentPage={currentPage}
-                                onPageChange={setCurrentPage}
-                            />
-                        </>
-                    )
+                ) : filteredOrders.length === 0 ? (
+                    <div className="error-message">{t.noOrder}</div>
+                ) : (
+                    <>
+                        <FiltersBar
+                            columns={columns}
+                            filters={filters}
+                            onFilterChange={handleFilterChange}
+                            translations={t}
+                        />
+                        <Table
+                            columns={columns}
+                            data={currentItems}
+                            actions={actions}
+                            onSort={handleSort}
+                            sortConfig={sortConfig}
+                        />
+                        <Pagination
+                            totalItems={filteredOrders.length}
+                            itemsPerPage={itemsPerPage}
+                            currentPage={currentPage}
+                            onPageChange={setCurrentPage}
+                        />
+                    </>
                 )}
             </div>
 
