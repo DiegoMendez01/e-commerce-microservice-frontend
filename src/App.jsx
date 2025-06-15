@@ -11,6 +11,7 @@ import Home from './pages/Home/Home';
 import Sitemap from './pages/Sitemap/Sitemap';
 import Category from './pages/Category/Category';
 import CategoryFormPage from './pages/CategoryFormPage/CategoryFormPage';
+import Product from './pages/Product/Product';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
               <Route path="/categories" element={<Category />} />
               <Route path="/categories/edit/:id" element={<CategoryFormPage />} />
               <Route path="/categories/create" element={<CategoryFormPage />} />
+              <Route path="/products" element={<Product />} />
             </Routes>
           </main>
           <AccessibilityMenu />

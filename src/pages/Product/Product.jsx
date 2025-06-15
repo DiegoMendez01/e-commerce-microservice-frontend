@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import './Category.css';
-import { fetchCategories, searchCategories, deleteCategory } from '../../api/Category/apiCategory';
+import './Product.css';
+import { fetchProducts, searchProducts, deleteProduct } from '../../api/Product/apiProduct';
 import { useLanguage } from '../../hooks/useLanguage';
 import Translations from '../../Translations/Translations';
 import HeadingH2 from '../../components/HeadingH2/HeadingH2';
@@ -13,12 +13,12 @@ import Button from '../../components/Button/Button';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Toast from '../../components/Toast/Toast';
 
-export default function Category() {
-    const [categories, setCategories] = useState([]);
-    const [originalCategories, setOriginalCategories] = useState([]);
+export default function Product() {
+    const [products, setProducts] = useState([]);
+    const [originalProducts, setOriginalProducts] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selectedCategory, setSelectedCategory] = useState(null);
+    const [selectedProduct, setSelectedProduct] = useState(null);
 
     const location = useLocation();
     const [toast, setToast] = useState(location.state?.toast || null);
@@ -45,11 +45,11 @@ export default function Category() {
 
         const loadData = async () => {
             try {
-                const data = await fetchCategories();
-                setCategories(data);
-                setOriginalCategories(data);
+                const data = await fetchProducts();
+                setProducts(data);
+                setOriginalProducts(data);
             } catch (error) {
-                console.error('Error al cargar las categorías:', error);
+                console.error('Error al cargar los productos:', error);
             }
         };
 
@@ -59,50 +59,50 @@ export default function Category() {
     const handleSearch = async (query) => {
         resetPage();
         if (!query) {
-            setCategories(originalCategories);
+            setProducts(originalProducts);
             setErrorMessage('');
             return;
         }
         try {
-            const results = await searchCategories(query);
-            setCategories(results);
+            const results = await searchProducts(query);
+            setProducts(results);
             setErrorMessage('');
         } catch (error) {
             console.error('Error en búsqueda:', error);
-            setCategories([]);
+            setProducts([]);
             setErrorMessage(t.noSearchResults);
         }
     };
 
     const openDeleteModal = (category) => {
-        setSelectedCategory(category);
+        setSelectedProduct(category);
         setIsModalOpen(true);
     };
 
     const closeDeleteModal = () => {
         setIsModalOpen(false);
-        setSelectedCategory(null);
+        setSelectedProduct(null);
     };
 
     const handleDeleteConfirm = async () => {
-        if (!selectedCategory) return;
+        if (!selectedProduct) return;
 
-        const deletedName = selectedCategory.name;
+        const deletedName = selectedProduct.name;
 
         try {
-            await deleteCategory(selectedCategory.id);
+            await deleteProduct(selectedProduct.id);
 
-            setCategories(prev =>
-                prev.filter(cat => cat.id !== selectedCategory.id)
+            setProducts(prev =>
+                prev.filter(cat => cat.id !== selectedProduct.id)
             );
-            setOriginalCategories(prev =>
-                prev.filter(cat => cat.id !== selectedCategory.id)
+            setOriginalProducts(prev =>
+                prev.filter(cat => cat.id !== selectedProduct.id)
             );
 
             closeDeleteModal();
             showToast(`${deletedName || ''} ${t.deletedSuccessfully}`);
         } catch (error) {
-            console.error('Error eliminando la categoría:', error);
+            console.error('Error eliminando el producto:', error);
         }
     };
 
@@ -115,7 +115,7 @@ export default function Category() {
         {
             icon: 'fas fa-edit',
             label: t.edit,
-            onClick: (row) => navigate(`/categories/edit/${row.id}`)
+            onClick: (row) => navigate(`/products/edit/${row.id}`)
         },
         {
             icon: 'fas fa-trash',
@@ -127,19 +127,19 @@ export default function Category() {
 
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = categories.slice(indexOfFirstItem, indexOfLastItem);
+    const currentItems = products.slice(indexOfFirstItem, indexOfLastItem);
 
     return (
         <>
-            <div className="page-category">
+            <div className="page-product">
                 <SearchBar onSearch={handleSearch} />
                 <div>
-                    <HeadingH2>{t.categories}</HeadingH2>
+                    <HeadingH2>{t.products}</HeadingH2>
                 </div>
                 {errorMessage ? (
                     <div className="error-message">{errorMessage}</div>
-                ) : categories.length === 0 ? (
-                    <div className="error-message">{t.noCategory}</div>
+                ) : products.length === 0 ? (
+                    <div className="error-message">{t.noProduct}</div>
                 ) : (
                     <>
                         <div className='button-container'>
@@ -147,14 +147,14 @@ export default function Category() {
                                 variant="outline"
                                 size="md"
                                 title={t.create}
-                                onClick={() => navigate('/categories/create')}
+                                onClick={() => navigate('/products/create')}
                             >
                                 {t.create}
                             </Button>
                         </div>
                         <Table columns={columns} data={currentItems} actions={actions} />
                         <Pagination
-                            totalItems={categories.length}
+                            totalItems={products.length}
                             itemsPerPage={itemsPerPage}
                             currentPage={currentPage}
                             onPageChange={setCurrentPage}
@@ -172,7 +172,7 @@ export default function Category() {
                 confirmText={t.confirm}
                 cancelText={t.cancel}
             >
-                <p>{t.deleteConfirmation.replace('%s', selectedCategory?.name)}</p>
+                <p>{t.deleteConfirmation.replace('%s', selectedProduct?.name)}</p>
             </Modal>
             {toast && (
                 <Toast
