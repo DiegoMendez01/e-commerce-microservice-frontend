@@ -108,7 +108,9 @@ export default function Product() {
 
     const columns = [
         { label: t.name, accessor: 'name', filter: true },
-        { label: t.description, accessor: 'description', filter: true },
+        { label: t.availableQuantity, accessor: 'availableQuantity', filter: true },
+        { label: t.price, accessor: 'price', filter: true },
+        { label: t.categoryName, accessor: 'categoryName', filter: true },
     ];
 
     const actions = [

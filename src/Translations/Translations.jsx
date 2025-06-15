@@ -54,6 +54,11 @@ const Translations = {
         // Categories
         noCategory: "No hay categorías disponibles.",
         category: "Categoría",
+        categoryName: "Nombre de la categoría",
+        // Products
+        availableQuantity: "Cantidad disponible",
+        price: "Precio",
+        product: "Producto",
         // Table
         name: "Nombre",
         description: "Descripción",
@@ -72,6 +77,11 @@ const Translations = {
         createdSuccessfully: '¡%s creada exitosamente!',
         updatedSuccessfully: '¡%s actualizada exitosamente!',
         errorSavingItem: 'Hubo un error al guardar la %s.',
+        // Form
+        enterPrice: "Ingrese el precio",
+        enterName: "Ingrese el nombre",
+        enterDescription: "Ingrese la descripción",
+        enterAvailableQuantity: "Ingrese la cantidad disponible",
     },
     en: {
         goHome: "Go to home page",
@@ -128,6 +138,11 @@ const Translations = {
         // Categories
         noCategory: "No categories available.",
         category: "Category",
+        categoryName: "Category name",
+        // Products
+        availableQuantity: "Available quantity",
+        price: "Price",
+        product: "Product",
         // Table
         name: "Name",
         description: "Description",
@@ -146,6 +161,11 @@ const Translations = {
         createdSuccessfully: '%s created successfully!',
         updatedSuccessfully: '%s updated successfully!',
         errorSavingItem: 'There was an error saving the %s.',
+        // Form
+        enterPrice: "Enter price",
+        enterName: "Enter name",
+        enterDescription: "Enter description",
+        enterAvailableQuantity: "Enter available quantity",
     },
 };
 
