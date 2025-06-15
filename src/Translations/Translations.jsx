@@ -32,6 +32,7 @@ const Translations = {
         firstPage: "Primero",
         lastPage: "Último",
         downloadSitemap: "Descargar mapa del sitio",
+        create: "Crear",
         // ProductCard-specific
         categoryLabel: "Categoría:",
         priceLabel: "Precio:",
@@ -98,6 +99,7 @@ const Translations = {
         firstPage: "First",
         lastPage: "Last",
         downloadSitemap: "Download sitemap",
+        create: "Create",
         // ProductCard-specific
         categoryLabel: "Category:",
         priceLabel: "Price:",

@@ -9,6 +9,8 @@ import Table from '../../components/Table/Table';
 import Pagination from '../../components/Pagination/Pagination';
 import usePagination from '../../hooks/usePagination';
 import Modal from '../../components/Modal/Modal';
+import Button from '../../components/Button/Button';
+import { useNavigate } from 'react-router-dom';
 
 export default function Category() {
     const [categories, setCategories] = useState([]);
@@ -19,6 +21,8 @@ export default function Category() {
 
     const { currentPage, setCurrentPage, resetPage } = usePagination();
     const itemsPerPage = 5;
+
+    const navigate = useNavigate();
 
     const { language } = useLanguage();
     const t = Translations[language];
@@ -77,7 +81,7 @@ export default function Category() {
         {
             icon: 'fas fa-edit',
             label: t.edit,
-            onClick: (row) => alert(`Editar categoría: ${row.name}`)
+            onClick: (row) => navigate(`/categories/edit/${row.id}`)
         },
         {
             icon: 'fas fa-trash',
@@ -104,6 +108,16 @@ export default function Category() {
                     <div className="error-message">{t.noCategory}</div>
                 ) : (
                     <>
+                        <div className='button-container'>
+                            <Button
+                                variant="primary"
+                                size="md"
+                                title={t.create}
+                                onClick={() => navigate('/categories/create')}
+                            >
+                                {t.create}
+                            </Button>
+                        </div>
                         <Table columns={columns} data={currentItems} actions={actions} />
                         <Pagination
                             totalItems={categories.length}

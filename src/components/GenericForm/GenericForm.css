@@ -1,0 +1,46 @@
+.generic-form-wrapper {
+  background-color: var(--primary-light-gray);
+  padding: 2rem;
+  border-radius: 1rem;
+  max-width: 500px;
+  margin: 0 auto;
+  color: var(--text-color);
+}
+
+.dark-mode .generic-form-wrapper {
+  background-color: var(--primary-black);
+  color: var(--primary-white);
+}
+
+.generic-form .form-group {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.generic-form .form-group label {
+  margin-bottom: 0.5rem;
+}
+
+.generic-form input,
+.generic-form textarea,
+.generic-form select {
+  padding: 0.5rem;
+  border: 1px solid var(--primary-gray);
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  background: var(--primary-white);
+  color: var(--text-color);
+}
+
+.dark-mode .generic-form input,
+.dark-mode .generic-form textarea,
+.dark-mode .generic-form select {
+  background: var(--primary-dark);
+  color: var(--primary-white);
+  border: 1px solid var(--primary-light-gray);
+}
+
+.generic-form button {
+  margin-top: 1rem;
+}

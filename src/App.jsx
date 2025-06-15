@@ -10,6 +10,7 @@ import Footer from './components/Footer/Footer';
 import Home from './pages/Home/Home';
 import Sitemap from './pages/Sitemap/Sitemap';
 import Category from './pages/Category/Category';
+import CategoryFormPage from './pages/CategoryFormPage/CategoryFormPage';
 
 function App() {
   return (
@@ -23,6 +24,8 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/sitemap" element={<Sitemap />} />
               <Route path="/categories" element={<Category />} />
+              <Route path="/categories/edit/:id" element={<CategoryFormPage />} />
+              <Route path="/categories/create" element={<CategoryFormPage />} />
             </Routes>
           </main>
           <AccessibilityMenu />
