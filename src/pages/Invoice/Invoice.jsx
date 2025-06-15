@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useHttp } from '../../hooks/useHttp';
 import Spinner from '../../components/Spinner/Spinner';
-import HeadingH2 from '../../components/HeadingH2/HeadingH2';
 import './Invoice.css';
 import { fetchOrderLineById } from '../../api/Order/OrderLines/apiOrderLine';
 import { fetchOrderById } from '../../api/Order/apiOrder';
@@ -11,6 +10,8 @@ import { useLanguage } from '../../hooks/useLanguage';
 import Translations from '../../Translations/Translations';
 import { fetchProductById } from '../../api/Product/apiProduct';
 import { fetchCustomerById } from '../../api/Customer/apiCustomer';
+import html2pdf from 'html2pdf.js';
+import Button from '../../components/Button/Button';
 
 export default function Invoice() {
     const { id } = useParams();
@@ -57,6 +58,18 @@ export default function Invoice() {
         fetchData();
     }, [id, request]);
 
+    const handleDownloadPDF = () => {
+        const element = document.getElementById('invoice-pdf');
+        const options = {
+            margin: 0.5,
+            filename: `invoice-${id}.pdf`,
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+        };
+        html2pdf().set(options).from(element).save();
+    };
+
     const totalQuantity = Array.isArray(orderLines)
         ? orderLines.reduce((sum, item) => sum + item.quantity, 0)
         : 0;
@@ -80,7 +93,6 @@ export default function Invoice() {
                     { label: t.invoiceView }
                 ]}
             />
-            <HeadingH2>{t.invoiceView} #{id}</HeadingH2>
 
             {loading ? (
                 <Spinner />
@@ -88,43 +100,62 @@ export default function Invoice() {
                 <div className="error-message">{t.failedInvoice}</div>
             ) : (
                 <>
-                    <div className="invoice-header">
-                        <p><strong>{t.reference}:</strong> {order.reference}</p>
-                        <p><strong>{t.paymentMethod}:</strong> {order.paymentMethod}</p>
-                        <p><strong>{t.customer}:</strong> {customerName || order.customerId}</p>
-                        <p><strong>{t.totalAmount}:</strong> ${order.totalAmount.toFixed(2)}</p>
-                    </div>
+                    <div className="invoice-container" id="invoice-pdf">
+                        <header className="invoice-top">
+                            <div className="invoice-logo">
+                                <h2>E-commerce</h2>
+                                <Link to="/">
+                                    www.e-commerce.com
+                                </Link>
+                            </div>
+                            <div className="invoice-meta">
+                                <h3>{t.invoiceView} #{id}</h3>
+                                <p>{t.date}: {new Date().toLocaleDateString()}</p>
+                                <p>{t.status}: {order.status || t.completed}</p>
+                            </div>
+                        </header>
 
-                    {orderLines.length === 0 ? (
-                        <div className="error-message">{t.noInvoice}</div>
-                    ) : (
-                        <table className="invoice-table">
-                            <thead>
-                                <tr>
-                                    <th>{t.product}</th>
-                                    <th>{t.quantityLabel}</th>
-                                    <th>{t.priceLabel}</th>
-                                    <th>{t.subtotal}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {orderLinesWithPrice.map((line) => (
-                                    <tr key={line.id}>
-                                        <td>{productNames[line.productId] || `${t.product} #${line.productId}`}</td>
-                                        <td>{line.quantity}</td>
-                                        <td>${line.unitPrice.toFixed(2)}</td>
-                                        <td>${(line.quantity * line.unitPrice).toFixed(2)}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td colSpan="3" className="total-label">{t.totalLabel}</td>
-                                    <td className="total-value">${order.totalAmount.toFixed(2)}</td>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    )}
+                        <section className="invoice-info">
+                            <div>
+                                <h4>{t.customer}</h4>
+                                <p>{customerName || order.customerId}</p>
+                            </div>
+                            <div>
+                                <h4>{t.paymentMethod}</h4>
+                                <p>{order.paymentMethod}</p>
+                            </div>
+                            <div>
+                                <h4>{t.reference}</h4>
+                                <p>{order.reference}</p>
+                            </div>
+                        </section>
+
+                        <section className="invoice-lines">
+                            <h4>{t.orderDetails}</h4>
+                            {orderLinesWithPrice.map((line) => (
+                                <div className="invoice-line" key={line.id}>
+                                    <div className="product-info">
+                                        <strong>{productNames[line.productId] || `${t.product} #${line.productId}`}</strong>
+                                        <span>{t.quantityLabel}: {line.quantity}</span>
+                                    </div>
+                                    <div className="product-price">
+                                        <span>${line.unitPrice.toFixed(2)} x {line.quantity}</span>
+                                        <span className="subtotal">${(line.unitPrice * line.quantity).toFixed(2)}</span>
+                                    </div>
+                                </div>
+                            ))}
+                        </section>
+
+                        <footer className="invoice-footer">
+                            <div className="total-label">{t.totalLabel}:</div>
+                            <div className="total-amount">${order.totalAmount.toFixed(2)}</div>
+                        </footer>
+                    </div>
+                    <div className="pdf-button-container">
+                        <Button variant="outline" onClick={handleDownloadPDF}>
+                            {t.downloadPDF}
+                        </Button>
+                    </div>
                 </>
             )}
         </div>

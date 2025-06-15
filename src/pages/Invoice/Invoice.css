@@ -1,0 +1,150 @@
+.invoice-container {
+  background: var(--primary-white);
+  padding: 2.5rem;
+  max-width: 800px;
+  margin: 2rem auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  font-family: var(--font-family-base, 'Segoe UI', sans-serif);
+  color: var(--text-color);
+}
+
+.invoice-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--primary-light-gray);
+  padding-bottom: 1rem;
+}
+
+.pdf-button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+}
+
+.invoice-logo h2 {
+  margin: 0;
+  color: var(--text-color);
+}
+
+.invoice-logo p {
+  font-size: var(--font-size-small);
+  color: var(--secondary-gray);
+}
+
+.invoice-meta h3 {
+  margin: 0 0 0.5rem 0;
+  color: var(--text-color);
+}
+
+.invoice-meta p {
+  margin: 0.2rem 0;
+  font-size: var(--font-size-base);
+  color: var(--secondary-gray);
+}
+
+.invoice-info {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.invoice-info h4 {
+  margin-bottom: 0.25rem;
+  color: var(--text-color);
+}
+
+.invoice-lines {
+  margin-bottom: 2rem;
+}
+
+.invoice-line {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--primary-light-gray);
+}
+
+.product-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-info strong {
+  font-size: var(--font-size-base);
+  color: var(--text-color);
+}
+
+.product-price {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  color: var(--text-color);
+}
+
+.subtotal {
+  font-weight: var(--font-weight-bold);
+  color: var(--text-color);
+}
+
+.invoice-footer {
+  display: flex;
+  justify-content: space-between;
+  border-top: 2px solid var(--primary-gray);
+  padding-top: 1rem;
+  font-size: var(--font-size-large);
+  font-weight: var(--font-weight-bold);
+}
+
+.total-label {
+  color: var(--text-color);
+}
+
+.total-amount {
+  color: var(--text-color);
+}
+
+/* 🌙 Modo oscuro */
+.dark-mode .invoice-container {
+  background: var(--accent-bg);
+  color: var(--text-color);
+  box-shadow: 0 4px 16px rgba(255, 255, 255, 0.05);
+}
+
+.dark-mode .invoice-top {
+  border-bottom: 1px solid var(--primary-gray);
+}
+
+.dark-mode .invoice-line {
+  border-bottom: 1px solid var(--primary-gray);
+}
+
+.dark-mode .invoice-footer {
+  border-top: 2px solid var(--primary-light-gray);
+}
+
+@media screen and (max-width: 600px) {
+  .invoice-top,
+  .invoice-info,
+  .invoice-line,
+  .invoice-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .product-price {
+    align-items: flex-start;
+  }
+
+  .invoice-footer {
+    align-items: flex-end;
+  }
+
+  .invoice-container {
+    padding: 1.5rem;
+  }
+}

@@ -160,6 +160,10 @@ const Translations = {
         invoiceView: "Factura",
         noInvoice: "La factura no tiene productos",
         failedInvoice: "Error al cargar la factura.",
+        completed: "COMPLETADO",
+        date: "Fecha",
+        status: "Estado",
+        downloadPDF: "Descargar PDF"
     },
     en: {
         goHome: "Go to home page",
@@ -322,6 +326,10 @@ const Translations = {
         invoiceView: "Invoice",
         noInvoice: "This order has no items.",
         failedInvoice: "Failed to load invoice.",
+        completed: "COMPLETED",
+        date: "Date",
+        status: "Status",
+        downloadPDF: "Download PDF"
     },
 };
 
