@@ -19,6 +19,7 @@ Este proyecto es el frontend de un sistema de comercio electrónico basado en **
 - Node.js (v18 o superior)
 - npm
 - Backend de microservicios en ejecución (ver [backend repo](https://github.com/DiegoMendez01/e-commerce-microservice))
+- Bajar cambios del backend
 
 ## Instalación
 
